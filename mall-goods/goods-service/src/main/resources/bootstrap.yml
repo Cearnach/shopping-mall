@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: goods-service
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-center
+      profile: dev
+      label: master
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:9001/eureka/
+  instance:
+    hostname: localhost
+server:
+  port: 9501

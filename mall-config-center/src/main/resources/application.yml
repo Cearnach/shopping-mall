@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: config-center
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/karima/shopping-mall-config-center.git
+          username: 453116746@qq.com
+          password: a123456
+          basedir: e:/cloud-config-git/shopping-mall-config
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:9001/eureka/
+  instance:
+    hostname: localhost
+#暴露出所有的url,比如/actuator/bus-refresh 等
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+server:
+  port: 9050
