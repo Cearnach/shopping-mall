@@ -1,4 +1,4 @@
-package com.xmut.osm.config;
+package com.xmut.osm;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

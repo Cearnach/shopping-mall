@@ -3,14 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>mall-goods</artifactId>
+        <artifactId>mall-order</artifactId>
         <groupId>com.xmut</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>goods-service</artifactId>
-
+    <artifactId>order-service</artifactId>
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -38,8 +37,14 @@
         </dependency>
         <dependency>
             <groupId>com.xmut</groupId>
-            <artifactId>goods-feign</artifactId>
+            <artifactId>order-feign</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xmut</groupId>
+            <artifactId>order-controller</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
+
 </project>

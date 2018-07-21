@@ -9,26 +9,22 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mall-repository</artifactId>
-
+    <artifactId>mall-order</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>order-service</module>
+        <module>order-feign</module>
+        <module>order-controller</module>
+    </modules>
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>com.xmut</groupId>
             <artifactId>mall-entity</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xmut</groupId>
+            <artifactId>goods-feign</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
