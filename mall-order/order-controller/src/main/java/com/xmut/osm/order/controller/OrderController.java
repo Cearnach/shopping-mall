@@ -25,16 +25,38 @@ public class OrderController {
     @HystrixCommand(fallbackMethod = "fallback")
     public ResultVO<Goods> t() {
         Goods goods = goodsServiceClient.fetchgoods("gid");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         ResultVO<Goods> resultVO = new ResultVO<>();
         resultVO.setSuccess(true);
         resultVO.setData(goods);
         return resultVO;
     }
 
-    public ResultVO<Goods>  fallback() {
+    public ResultVO<Goods> fallback() {
         ResultVO<Goods> resultVO = new ResultVO<>();
         resultVO.setSuccess(false);
         resultVO.setMessage("failed");
         return resultVO;
     }
+
+    @GetMapping("/str")
+    @HystrixCommand(fallbackMethod = "strFallback")
+    public String testString()  {
+        try {
+            Thread.sleep(1111);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
+        return "str";
+    }
+
+    public String strFallback() {
+        System.out.println("run fallback method");
+        return "fallback of str";
+    }
+
 }

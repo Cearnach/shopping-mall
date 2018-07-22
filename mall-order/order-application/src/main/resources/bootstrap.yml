@@ -6,7 +6,6 @@ spring:
       discovery:
         enabled: true
         service-id: config-center
-      profile: dev
       label: master
 eureka:
   client:
@@ -19,3 +18,12 @@ server:
 feign:
   hystrix:
     enabled: true
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000

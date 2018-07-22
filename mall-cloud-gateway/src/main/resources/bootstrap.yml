@@ -1,0 +1,15 @@
+spring:
+  cloud:
+      config:
+        discovery:
+          enabled: true
+          service-id: config-center
+        label: master
+  application:
+    name: gateway-service
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9001/eureka/
+server:
+  port: 9000

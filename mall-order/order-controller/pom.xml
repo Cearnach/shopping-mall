@@ -17,5 +17,10 @@
         <artifactId>order-controller</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </dependency>
+    <dependency>
+        <groupId>com.xmut</groupId>
+        <artifactId>order-service</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </dependency>
 </dependencies>
 </project>
