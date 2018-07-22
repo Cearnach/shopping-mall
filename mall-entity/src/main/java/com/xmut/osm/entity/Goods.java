@@ -5,10 +5,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -28,8 +25,33 @@ public class Goods implements Serializable {
     @Column(name = "goods_id")
     private String id;
 
-    @Column(name = "goods_name")
     private String name;
+
+    /**
+     * 副标题
+     */
+    private String secondName;
+
+    @JoinColumn(name = "brand_id")
+    @ManyToOne
+    private Brand brand;
+
+    @ManyToOne
+    private Seller seller;
+
+    private Double price;
+
+    @ManyToOne
+    private GoodsType goodsType;
+
+    private Boolean deleted;
+
+    /**
+     * 商品状态
+     */
+    private Integer status;
+
+    private String image;
 
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date updateDate;

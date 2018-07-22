@@ -15,6 +15,7 @@
         <module>mall-config-center</module>
         <module>mall-order</module>
         <module>mall-cloud-gateway</module>
+        <module>mall-manager-rest</module>
     </modules>
     <packaging>pom</packaging>
 
