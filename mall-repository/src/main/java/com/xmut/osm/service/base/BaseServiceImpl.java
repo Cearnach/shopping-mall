@@ -3,6 +3,7 @@ package com.xmut.osm.service.base;
 import com.xmut.osm.exception.TargetEntityNotFound;
 import com.xmut.osm.form.PageBean;
 import com.xmut.osm.repository.base.BaseRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,12 +12,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author 阮胜
  * @date 2018/7/2 19:35
  */
+@Slf4j
 @Transactional(rollbackFor = Exception.class)
 public class BaseServiceImpl<Entity, ID extends Serializable, Repository extends BaseRepository<Entity, ID>> implements BaseService<Entity, ID> {
     @Autowired
@@ -56,14 +59,20 @@ public class BaseServiceImpl<Entity, ID extends Serializable, Repository extends
     }
 
     @Override
-    public void deleteIn(ID[] idArr) {
+    public List<ID> deleteIn(ID[] idArr) {
+        List<ID> failedIdList = null;
         for (ID id : idArr) {
             try {
                 delete(id);
             } catch (Exception e) {
-                e.printStackTrace();
+                log.info(e.getMessage());
+                if (failedIdList == null) {
+                    failedIdList = new ArrayList<>();
+                }
+                failedIdList.add(id);
             }
         }
+        return failedIdList;
     }
 
     @Override

@@ -26,7 +26,7 @@ public interface BaseService<T, ID extends Serializable> {
 
     Page<T> findAll(PageBean pageBean, Sort.Direction direction, String... properties);
 
-    void deleteIn(ID[] idArr);
+    List<ID> deleteIn(ID[] idArr);
 
     long count();
 

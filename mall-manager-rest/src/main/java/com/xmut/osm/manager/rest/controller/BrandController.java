@@ -1,13 +1,13 @@
 package com.xmut.osm.manager.rest.controller;
 
 import com.xmut.osm.common.bean.PageBean;
+import com.xmut.osm.common.bean.PageInfo;
 import com.xmut.osm.common.bean.ResultVO;
 import com.xmut.osm.entity.Brand;
 import com.xmut.osm.goods.feign.BrandServiceClient;
-import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,8 +15,10 @@ import java.util.List;
  * @author 阮胜
  * @date 2018/7/22 23:34
  */
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @RestController
 @RequestMapping("/brand")
+@Slf4j
 public class BrandController {
     private final BrandServiceClient brandServiceClient;
 
@@ -25,12 +27,34 @@ public class BrandController {
     }
 
     @GetMapping("/list")
-    public ResultVO<List<Brand>> fetchBrandList(PageBean pageBean) {
-        List<Brand> brandList = brandServiceClient.fetchBrandList(pageBean.getSize(), pageBean.getPage());
-        ResultVO<List<Brand>> resultVO = new ResultVO<>();
-        resultVO.setSuccess(true);
-        resultVO.setMessage("获取品牌列表成功");
-        resultVO.setData(brandList);
+    public PageInfo<Brand> fetchBrandList(PageBean pageBean) {
+        return brandServiceClient.fetchBrandList(pageBean.getSize(), pageBean.getPage());
+    }
+
+    @PostMapping("/save")
+    public boolean save(@RequestBody Brand brand) {
+        if (brand.getId() == null) {
+            brand.setId(0);
+        }
+        return brandServiceClient.save(brand);
+    }
+
+    @DeleteMapping("/deleteAll")
+    public ResultVO<List<Integer>> deleteAll(Integer[] ids) {
+        ResultVO<List<Integer>> resultVO = new ResultVO<>();
+        try {
+            List<Integer> failedIdList = brandServiceClient.deleteAll(ids);
+            if (CollectionUtils.isEmpty(failedIdList)) {
+                resultVO.setSuccess(true);
+            } else {
+                resultVO.setSuccess(false);
+                resultVO.setData(failedIdList);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            resultVO.setSuccess(false);
+            resultVO.setMessage("发生错误:" + e.getMessage());
+        }
         return resultVO;
     }
 }
