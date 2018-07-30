@@ -7,10 +7,11 @@ app.controller("brandController", function ($scope, $http, $controller, brandSer
         if (size === undefined || size < 0) {
             size = 10;
         }
-        brandService.findList(page, size).then(function (resp) {
-            $scope.pageInfo = resp.data;
-            $scope.paginationConf.totalItems = $scope.pageInfo.totalElements;
-        }).catch(function () {
+        brandService.findList(page, size)
+            .then(function (resp) {
+                $scope.pageInfo = resp.data;
+                $scope.paginationConf.totalItems = $scope.pageInfo.totalElements;
+            }).catch(function () {
             alert("获取品牌列表失败");
         });
     };
@@ -27,8 +28,14 @@ app.controller("brandController", function ($scope, $http, $controller, brandSer
             return;
         }
         brandService.save($scope.brand).then(function (resp) {
-            alert("保存品牌成功");
-            $scope.refreshBrandList();
+            if (resp.data.success) {
+                alert("保存品牌成功");
+                $scope.refreshBrandList();
+            } else {
+                alert("保存品牌失败");
+                console.log(resp.data.message);
+            }
+
         }).catch(function (reason) {
             alert("保存品牌失败");
         });
@@ -64,10 +71,5 @@ app.controller("brandController", function ($scope, $http, $controller, brandSer
             })
         }
     };
-
 });
 
-function setChkCheckedAll(parentId, childClazz) {
-    var isChecked = $("#" + parentId).prop("checked");
-    $("." + childClazz).prop("checked", isChecked);
-}

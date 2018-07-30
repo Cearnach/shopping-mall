@@ -3,10 +3,12 @@ package com.xmut.osm.manager.rest.controller;
 import com.xmut.osm.common.bean.PageBean;
 import com.xmut.osm.common.bean.PageInfo;
 import com.xmut.osm.common.bean.ResultVO;
+import com.xmut.osm.common.util.ResultVOUtil;
 import com.xmut.osm.entity.Brand;
 import com.xmut.osm.goods.feign.BrandServiceClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,11 +34,21 @@ public class BrandController {
     }
 
     @PostMapping("/save")
-    public boolean save(@RequestBody Brand brand) {
+    public ResultVO save(@RequestBody Brand brand, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResultVOUtil.generateResultVO(bindingResult);
+        }
+        ResultVO<String> resultVO = new ResultVO<>();
         if (brand.getId() == null) {
             brand.setId(0);
         }
-        return brandServiceClient.save(brand);
+        try {
+            resultVO.setSuccess(brandServiceClient.save(brand));
+        } catch (Exception e) {
+            resultVO.setSuccess(false);
+            resultVO.setMessage(e.getMessage());
+        }
+        return resultVO;
     }
 
     @DeleteMapping("/deleteAll")

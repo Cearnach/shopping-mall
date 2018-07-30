@@ -17,5 +17,9 @@ app.controller("baseController", function ($scope) {
             }, 200);
         }
     };
-
 });
+
+function setChkCheckedAll(parentId, childClazz) {
+    var isChecked = $("#" + parentId).prop("checked");
+    $("." + childClazz).prop("checked", isChecked);
+}
