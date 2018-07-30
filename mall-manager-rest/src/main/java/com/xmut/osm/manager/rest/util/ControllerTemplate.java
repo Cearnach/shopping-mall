@@ -1,44 +1,37 @@
-package com.xmut.osm.manager.rest.controller;
+package com.xmut.osm.manager.rest.util;
 
 import com.xmut.osm.common.bean.PageBean;
 import com.xmut.osm.common.bean.PageInfo;
 import com.xmut.osm.common.bean.ResultVO;
 import com.xmut.osm.common.util.ResultVOUtil;
 import com.xmut.osm.entity.Brand;
-import com.xmut.osm.goods.feign.BrandServiceClient;
-import com.xmut.osm.manager.rest.util.ControllerTemplate;
+import com.xmut.osm.goods.feign.BaseServiceClient;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 /**
  * @author 阮胜
- * @date 2018/7/22 23:34
+ * @date 2018/7/30 15:38
  */
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-@RestController
-@RequestMapping("/brand")
+@Component
 @Slf4j
-public class BrandController {
-    private final BrandServiceClient brandServiceClient;
-    private final ControllerTemplate<Brand> controllerTemplate;
+public class ControllerTemplate<T> {
+    private BaseServiceClient<T> baseServiceClient;
 
-    public BrandController(BrandServiceClient brandServiceClient, ControllerTemplate<Brand> controllerTemplate) {
-        this.brandServiceClient = brandServiceClient;
-        this.controllerTemplate = controllerTemplate;
-        this.controllerTemplate.setBaseServiceClient(brandServiceClient);
+    public void setBaseServiceClient(BaseServiceClient<T> baseServiceClient) {
+        this.baseServiceClient = baseServiceClient;
     }
 
-
-    @GetMapping("/all")
-    public PageInfo<Brand> fetchBrandAll(PageBean pageBean) {
-        return controllerTemplate.fetchAll(pageBean);
+    public PageInfo<T> fetchAll(PageBean pageBean) {
+        return baseServiceClient.fetchAll(pageBean.getPage(), pageBean.getSize());
     }
 
-    @PostMapping("/save")
     public ResultVO save(@RequestBody Brand brand, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResultVOUtil.generateResultVO(bindingResult);
@@ -48,7 +41,7 @@ public class BrandController {
             brand.setId(0);
         }
         try {
-            resultVO.setSuccess(brandServiceClient.save(brand));
+            resultVO.setSuccess(baseServiceClient.save(brand));
         } catch (Exception e) {
             resultVO.setSuccess(false);
             resultVO.setMessage(e.getMessage());
@@ -56,11 +49,10 @@ public class BrandController {
         return resultVO;
     }
 
-    @DeleteMapping("/deleteAll")
     public ResultVO<List<Integer>> deleteAll(Integer[] ids) {
         ResultVO<List<Integer>> resultVO = new ResultVO<>();
         try {
-            List<Integer> failedIdList = brandServiceClient.deleteAll(ids);
+            List<Integer> failedIdList = baseServiceClient.deleteAll(ids);
             if (CollectionUtils.isEmpty(failedIdList)) {
                 resultVO.setSuccess(true);
             } else {

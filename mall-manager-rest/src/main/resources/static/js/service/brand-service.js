@@ -1,5 +1,5 @@
 app.service("brandService", function ($http) {
-    this.findList = function (page, size) {
+    this.findAll = function (page, size) {
         return $http.get("/manager/brand/all?page=" + (page - 1) + "&size=" + size);
     };
     this.save = function (entity) {

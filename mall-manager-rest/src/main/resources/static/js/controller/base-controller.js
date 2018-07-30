@@ -10,7 +10,7 @@ app.controller("baseController", function ($scope) {
             if (!$scope.reload) {
                 return;
             }
-            $scope.findList($scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);
+            $scope.findAll($scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);
             $scope.reload = false;
             setTimeout(function () {
                 $scope.reload = true;

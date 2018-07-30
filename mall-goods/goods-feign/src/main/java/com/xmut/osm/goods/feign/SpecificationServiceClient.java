@@ -16,11 +16,8 @@ public interface SpecificationServiceClient {
     @GetMapping("/specification/all?page={page}&size={size}")
     PageInfo<Specification> fetchSepecificationAll(@PathVariable("page") Integer page, @PathVariable("size") Integer size);
 
-    @PostMapping("/specification/add")
-    boolean add(@RequestBody Specification specification);
-
-    @PutMapping("/specification/update")
-    boolean update(@RequestBody Specification specification);
+    @PostMapping("/specification/save")
+    boolean save(@RequestBody Specification specification);
 
     @DeleteMapping("/specification/deleteAll")
     List<Integer> deleteAll(@RequestParam("ids") Integer[] ids);

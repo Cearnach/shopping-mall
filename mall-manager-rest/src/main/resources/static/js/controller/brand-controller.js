@@ -1,18 +1,18 @@
 app.controller("brandController", function ($scope, $http, $controller, brandService) {
     $controller('baseController', {$scope: $scope});
-    $scope.findList = function (page, size) {
+    $scope.findAll = function (page, size) {
         if (page === undefined || page < 1) {
             page = 1;
         }
         if (size === undefined || size < 0) {
             size = 10;
         }
-        brandService.findList(page, size)
+        brandService.findAll(page, size)
             .then(function (resp) {
                 $scope.pageInfo = resp.data;
                 $scope.paginationConf.totalItems = $scope.pageInfo.totalElements;
             }).catch(function () {
-            alert("获取品牌列表失败");
+            alert("获取列表失败");
         });
     };
 
@@ -29,15 +29,15 @@ app.controller("brandController", function ($scope, $http, $controller, brandSer
         }
         brandService.save($scope.brand).then(function (resp) {
             if (resp.data.success) {
-                alert("保存品牌成功");
+                alert("保存成功");
                 $scope.refreshBrandList();
             } else {
-                alert("保存品牌失败");
+                alert("保存失败");
                 console.log(resp.data.message);
             }
 
         }).catch(function (reason) {
-            alert("保存品牌失败");
+            alert("保存失败");
         });
     };
     /* $scope.updateSelected = function (event, id) {

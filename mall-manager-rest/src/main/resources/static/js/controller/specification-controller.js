@@ -3,81 +3,77 @@ app.controller('specificationController', function ($scope, $controller, specifi
 
     $controller('baseController', {$scope: $scope});//继承
 
-    //读取列表数据绑定到表单中  
-    $scope.findAll = function () {
-        specificationService.findAll().then(
-            function (response) {
-                $scope.list = response;
-            }
-        );
-    }
-
-    //分页
-    $scope.findPage = function (page, rows) {
-        specificationService.findPage(page, rows).then(
-            function (response) {
-                $scope.list = response.rows;
-                $scope.paginationConf.totalItems = response.total;//更新总记录数
-            }
-        );
-    }
-
-    //查询实体
-    $scope.findOne = function (id) {
-        specificationService.findOne(id).then(
-            function (response) {
-                $scope.entity = response;
-            }
-        );
-    }
-
-    //保存
-    $scope.save = function () {
-        var serviceObject;//服务层对象
-        if ($scope.entity.specification.id != null) {//如果有ID
-            serviceObject = specificationService.update($scope.entity); //修改
-        } else {
-            serviceObject = specificationService.add($scope.entity);//增加
+    $scope.findAll = function (page, size) {
+        if (page === undefined || page < 1) {
+            page = 1;
         }
-        serviceObject.success(
-            function (response) {
-                if (response.flag) {
-                    //重新查询
-                    $scope.reloadList();//重新加载
-                } else {
-                    alert(response.message);
-                }
-            }
-        );
+        if (size === undefined || size < 0) {
+            size = 10;
+        }
+        brandService.findAll(page, size)
+            .then(function (resp) {
+                $scope.pageInfo = resp.data;
+                $scope.paginationConf.totalItems = $scope.pageInfo.totalElements;
+            }).catch(function () {
+            alert("获取列表失败");
+        });
     };
 
-
-    //批量删除
-    $scope.dele = function () {
-        //获取选中的复选框
-        specificationService.dele($scope.selectIds).then(
-            function (response) {
-                if (response.flag) {
-                    $scope.reloadList();//刷新列表
-                    $scope.selectIds = [];
-                }
-            }
-        );
+    $scope.refreshBrandList = function () {
+        $scope.paginationConf.currentPage = 1;
     };
-
-    $scope.searchEntity = {};//定义搜索对象
-
-    //搜索
-    $scope.search = function (page, rows) {
-        specificationService.search(page, rows, $scope.searchEntity).then(
-            function (response) {
-                $scope.list = response.rows;
-                $scope.paginationConf.totalItems = response.total;//更新总记录数
-            }
-        );
+    $scope.bindSaveBrandData = function (brand) {
+        $scope.brand = brand;
     };
+    $scope.saveBrand = function () {
+        if ($scope.brand === undefined) {
+            alert("数据不完整");
+            return;
+        }
+        brandService.save($scope.brand).then(function (resp) {
+            if (resp.data.success) {
+                alert("保存成功");
+                $scope.refreshBrandList();
+            } else {
+                alert("保存失败");
+                console.log(resp.data.message);
+            }
 
-
+        }).catch(function (reason) {
+            alert("保存失败");
+        });
+    };
+    /* $scope.updateSelected = function (event, id) {
+         if (event.target.checked) {
+             $scope.selectedIds.push(id);
+         } else {
+             var index = $scope.selectedIds.indexOf(id);
+             $scope.selectedIds.splice(index, 1);
+         }
+         console.log($scope.selectedIds);
+     };*/
+    $scope.deleteBrand = function () {
+        $scope.selectedIds = [];
+        $(".chkItem").each(function () {
+            if ($(this).prop("checked")) {
+                var id = $(this).attr("objId");
+                $scope.selectedIds.push(id);
+            }
+        });
+        if (confirm("确定删除?") && $scope.selectedIds.length > 0) {
+            brandService.delete($scope.selectedIds)
+                .then(function (resp) {
+                    if (resp.data.success) {
+                        alert("删除成功");
+                        $scope.refreshBrandList();
+                    } else {
+                        console.log(resp);
+                    }
+                }).catch(function () {
+                console.log('error');
+            })
+        }
+    };
     $scope.addTableRow = function () {
         $scope.entity.specificationOptionList.push({});
     };
