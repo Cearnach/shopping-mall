@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 /**
  * 规格
@@ -15,7 +16,7 @@ import javax.persistence.Id;
  */
 @Data
 @Entity
-public class Specification {
+public class Specification implements Serializable {
     @Id
     @GeneratedValue
     private Integer id;

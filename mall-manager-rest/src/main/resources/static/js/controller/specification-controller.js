@@ -1,8 +1,5 @@
-//控制层
-app.controller('specificationController', function ($scope, $controller, specificationService) {
-
-    $controller('baseController', {$scope: $scope});//继承
-
+app.controller("specificationController", function ($scope, $http, $controller, specificationService) {
+    $controller('baseController', {$scope: $scope});
     $scope.findAll = function (page, size) {
         if (page === undefined || page < 1) {
             page = 1;
@@ -10,7 +7,7 @@ app.controller('specificationController', function ($scope, $controller, specifi
         if (size === undefined || size < 0) {
             size = 10;
         }
-        brandService.findAll(page, size)
+        specificationService.findAll(page, size)
             .then(function (resp) {
                 $scope.pageInfo = resp.data;
                 $scope.paginationConf.totalItems = $scope.pageInfo.totalElements;
@@ -19,21 +16,21 @@ app.controller('specificationController', function ($scope, $controller, specifi
         });
     };
 
-    $scope.refreshBrandList = function () {
+    $scope.refreshList = function () {
         $scope.paginationConf.currentPage = 1;
     };
-    $scope.bindSaveBrandData = function (brand) {
-        $scope.brand = brand;
+    $scope.bindSaveData = function (entity) {
+        $scope.bindingEntity = entity;
     };
-    $scope.saveBrand = function () {
-        if ($scope.brand === undefined) {
+    $scope.save = function () {
+        if ($scope.entity === undefined) {
             alert("数据不完整");
             return;
         }
-        brandService.save($scope.brand).then(function (resp) {
+        specificationService.save($scope.entity).then(function (resp) {
             if (resp.data.success) {
-                alert("保存成功");
-                $scope.refreshBrandList();
+                // alert("保存成功");
+                $scope.refreshList();
             } else {
                 alert("保存失败");
                 console.log(resp.data.message);
@@ -52,7 +49,7 @@ app.controller('specificationController', function ($scope, $controller, specifi
          }
          console.log($scope.selectedIds);
      };*/
-    $scope.deleteBrand = function () {
+    $scope.delete = function () {
         $scope.selectedIds = [];
         $(".chkItem").each(function () {
             if ($(this).prop("checked")) {
@@ -61,25 +58,38 @@ app.controller('specificationController', function ($scope, $controller, specifi
             }
         });
         if (confirm("确定删除?") && $scope.selectedIds.length > 0) {
-            brandService.delete($scope.selectedIds)
+            specificationService.delete($scope.selectedIds)
                 .then(function (resp) {
                     if (resp.data.success) {
-                        alert("删除成功");
-                        $scope.refreshBrandList();
+                        // alert("删除成功");
+                        $scope.refreshList();
                     } else {
                         console.log(resp);
+                        alert("删除失败");
                     }
                 }).catch(function () {
+                alert("删除失败");
                 console.log('error');
             })
         }
+    };
+    $scope.findOption = function (id) {
+        specificationService.findOption(id)
+            .then(function (value) {
+                console.log(value);
+            })
+            .catch(function (reason) {
+                console.log(reason);
+            });
     };
     $scope.addTableRow = function () {
         $scope.entity.specificationOptionList.push({});
     };
 
+
     $scope.deleteTableRow = function (index) {
         $scope.entity.specificationOptionList.splice(index, 1);
-    }
+    };
 
-});	
+});
+

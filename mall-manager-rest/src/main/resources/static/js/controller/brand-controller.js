@@ -16,21 +16,21 @@ app.controller("brandController", function ($scope, $http, $controller, brandSer
         });
     };
 
-    $scope.refreshBrandList = function () {
+    $scope.refreshList = function () {
         $scope.paginationConf.currentPage = 1;
     };
-    $scope.bindSaveBrandData = function (brand) {
-        $scope.brand = brand;
+    $scope.bindSaveData = function (entity) {
+        $scope.bindingEntity = entity;
     };
-    $scope.saveBrand = function () {
-        if ($scope.brand === undefined) {
+    $scope.save = function () {
+        if ($scope.entity === undefined) {
             alert("数据不完整");
             return;
         }
-        brandService.save($scope.brand).then(function (resp) {
+        brandService.save($scope.entity).then(function (resp) {
             if (resp.data.success) {
-                alert("保存成功");
-                $scope.refreshBrandList();
+                // alert("保存成功");
+                $scope.refreshList();
             } else {
                 alert("保存失败");
                 console.log(resp.data.message);
@@ -49,7 +49,7 @@ app.controller("brandController", function ($scope, $http, $controller, brandSer
          }
          console.log($scope.selectedIds);
      };*/
-    $scope.deleteBrand = function () {
+    $scope.delete = function () {
         $scope.selectedIds = [];
         $(".chkItem").each(function () {
             if ($(this).prop("checked")) {
@@ -61,12 +61,14 @@ app.controller("brandController", function ($scope, $http, $controller, brandSer
             brandService.delete($scope.selectedIds)
                 .then(function (resp) {
                     if (resp.data.success) {
-                        alert("删除成功");
-                        $scope.refreshBrandList();
+                        // alert("删除成功");
+                        $scope.refreshList();
                     } else {
+                        alert("删除失败");
                         console.log(resp);
                     }
                 }).catch(function () {
+                alert("删除失败");
                 console.log('error');
             })
         }

@@ -44,4 +44,5 @@ public class BrandController {
     public ResultVO<List<Integer>> deleteAll(Integer[] ids) {
         return controllerTemplate.deleteAll(ids);
     }
+
 }

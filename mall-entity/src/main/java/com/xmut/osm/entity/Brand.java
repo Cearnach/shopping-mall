@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.Min;
+import java.io.Serializable;
 
 /**
  * @author 阮胜
@@ -13,7 +13,7 @@ import javax.validation.constraints.Min;
  */
 @Data
 @Entity
-public class Brand {
+public class Brand implements Serializable {
     @Id
     @GeneratedValue
     private Integer id;

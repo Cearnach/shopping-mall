@@ -23,7 +23,7 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class BaseServiceImpl<Entity, ID extends Serializable, Repository extends BaseRepository<Entity, ID>> implements BaseService<Entity, ID> {
     @Autowired
-    private Repository repository;
+    protected Repository repository;
 
 
     @Override

@@ -6,6 +6,8 @@ import com.xmut.osm.repository.SpecificationOptionRepository;
 import com.xmut.osm.service.base.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author 阮胜
  * @date 2018/7/30 14:26
@@ -13,4 +15,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class SpecificationOptionServiceImpl extends BaseServiceImpl<SpecificationOption, Integer, SpecificationOptionRepository>
         implements SpecificationOptionService {
+
+    @Override
+    public List<SpecificationOption> findBySpecificationId(Integer specId) {
+        return repository.findBySpecificationId(specId);
+    }
 }
