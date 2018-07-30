@@ -12,13 +12,14 @@ import javax.persistence.*;
  */
 @Data
 @Entity
-public class SpecifictionOption {
+public class SpecificationOption {
     @Id
     @GeneratedValue
     private Integer id;
     private String name;
     @ManyToOne
-    @JoinColumn(name = "specifiction_id")
-    private Specifiction specifiction;
+    @JoinColumn(name = "specification_id")
+    private Specification specification;
+    @Column(name = "option_order")
     private Integer order;
 }
