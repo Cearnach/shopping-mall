@@ -3,9 +3,9 @@ package com.xmut.osm.manager.rest.controller;
 import com.xmut.osm.common.bean.PageBean;
 import com.xmut.osm.common.bean.PageInfo;
 import com.xmut.osm.common.bean.ResultVO;
-import com.xmut.osm.common.util.ResultVOUtil;
 import com.xmut.osm.entity.Specification;
 import com.xmut.osm.goods.feign.SpecificationServiceClient;
+import com.xmut.osm.manager.rest.util.ControllerTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -19,33 +19,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/specification")
 @Slf4j
 public class SpecificationController {
-    private final SpecificationServiceClient specificationServiceClient;
+    private final ControllerTemplate<Specification> controllerTemplate;
 
     public SpecificationController(SpecificationServiceClient specificationServiceClient) {
-        this.specificationServiceClient = specificationServiceClient;
+        controllerTemplate = ControllerTemplate.getInstance(specificationServiceClient);
     }
 
     @GetMapping("/all")
     public PageInfo<Specification> fetchSpecificationAll(PageBean pageBean) {
-        return specificationServiceClient.fetchSepecificationAll(pageBean.getPage(), pageBean.getSize());
+        return controllerTemplate.fetchAll(pageBean);
     }
 
     @PostMapping("/save")
     public ResultVO save(@RequestBody Specification specification, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return ResultVOUtil.generateResultVO(bindingResult);
-        }
-        ResultVO<String> resultVO = new ResultVO<>();
-        if (specification.getId() == null) {
-            specification.setId(0);
-        }
-        try {
-            resultVO.setSuccess(specificationServiceClient.save(specification));
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            resultVO.setSuccess(false);
-            resultVO.setMessage(e.getMessage());
-        }
-        return resultVO;
+        return controllerTemplate.save(specification, bindingResult);
     }
 }

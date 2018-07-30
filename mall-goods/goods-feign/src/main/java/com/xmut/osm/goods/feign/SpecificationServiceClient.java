@@ -12,13 +12,17 @@ import java.util.List;
  * @date 2018/7/30 15:02
  */
 @FeignClient(name = FeignClientConstraint.GOODS_SERVICE_CLIENT_NAME)
-public interface SpecificationServiceClient {
+public interface SpecificationServiceClient extends BaseServiceClient<Specification> {
+
     @GetMapping("/specification/all?page={page}&size={size}")
-    PageInfo<Specification> fetchSepecificationAll(@PathVariable("page") Integer page, @PathVariable("size") Integer size);
+    @Override
+    PageInfo<Specification> fetchAll(@PathVariable("page") Integer page, @PathVariable("size") Integer size);
 
     @PostMapping("/specification/save")
+    @Override
     boolean save(@RequestBody Specification specification);
 
     @DeleteMapping("/specification/deleteAll")
+    @Override
     List<Integer> deleteAll(@RequestParam("ids") Integer[] ids);
 }

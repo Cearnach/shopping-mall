@@ -13,6 +13,7 @@ import java.util.List;
  */
 @FeignClient(name = FeignClientConstraint.GOODS_SERVICE_CLIENT_NAME)
 public interface BrandServiceClient extends BaseServiceClient<Brand> {
+
     @GetMapping("/brand/all?page={page}&size={size}")
     @Override
     PageInfo<Brand> fetchAll(@PathVariable("page") Integer page, @PathVariable("size") Integer size);
