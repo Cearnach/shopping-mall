@@ -22,4 +22,14 @@ public class SpecificationOption {
     private Specification specification;
     @Column(name = "option_order")
     private Integer order;
+
+    public SpecificationOption() {
+    }
+
+    public SpecificationOption(String name, Specification specification, Integer order) {
+
+        this.name = name;
+        this.specification = specification;
+        this.order = order;
+    }
 }

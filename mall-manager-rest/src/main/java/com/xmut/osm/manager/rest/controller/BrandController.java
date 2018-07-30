@@ -28,9 +28,9 @@ public class BrandController {
         this.brandServiceClient = brandServiceClient;
     }
 
-    @GetMapping("/list")
-    public PageInfo<Brand> fetchBrandList(PageBean pageBean) {
-        return brandServiceClient.fetchBrandList(pageBean.getSize(), pageBean.getPage());
+    @GetMapping("/all")
+    public PageInfo<Brand> fetchBrandAll(PageBean pageBean) {
+        return brandServiceClient.fetchBrandAll(pageBean.getSize(), pageBean.getPage());
     }
 
     @PostMapping("/save")

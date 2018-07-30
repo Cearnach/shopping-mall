@@ -15,7 +15,7 @@ import java.util.List;
  * @author 阮胜
  * @date 2018/7/21 14:56
  */
-@FeignClient(name = "GOODS-SERVICE", fallback = GoodsServiceClient.GoodsServiceClientFallback.class)
+@FeignClient(name = FeignClientConstraint.GOODS_SERVICE_CLIENT_NAME, fallback = GoodsServiceClient.GoodsServiceClientFallback.class)
 public interface GoodsServiceClient {
 
     @GetMapping("/goods/{goodsId}")

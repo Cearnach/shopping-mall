@@ -24,8 +24,8 @@ public class BrandController {
         this.brandService = brandService;
     }
 
-    @GetMapping("/list")
-    public PageInfo<Brand> fetchBrandList(PageBean pageBean) {
+    @GetMapping("/all")
+    public PageInfo<Brand> fetchBrandAll(PageBean pageBean) {
         Page<Brand> brandPage = brandService.findAll(pageBean);
         return new PageInfo<>(pageBean.getPage(), brandPage.getTotalElements(), brandPage.getContent());
     }

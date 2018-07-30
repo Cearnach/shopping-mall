@@ -25,8 +25,8 @@ public class GoodsController {
         this.goodsService = goodsService;
     }
 
-    @GetMapping("/list")
-    public List<Goods> list() {
+    @GetMapping("/all")
+    public List<Goods> all() {
         ArrayList<Goods> goodsList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             Goods goods = new Goods();

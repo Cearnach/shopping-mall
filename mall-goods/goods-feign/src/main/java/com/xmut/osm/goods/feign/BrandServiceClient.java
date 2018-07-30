@@ -11,10 +11,10 @@ import java.util.List;
  * @author 阮胜
  * @date 2018/7/22 23:37
  */
-@FeignClient(name = "GOODS-SERVICE")
+@FeignClient(name = FeignClientConstraint.GOODS_SERVICE_CLIENT_NAME)
 public interface BrandServiceClient {
-    @GetMapping("/brand/list?size={size}&page={page}")
-    PageInfo<Brand> fetchBrandList(@PathVariable("size") Integer size, @PathVariable("page") Integer page);
+    @GetMapping("/brand/all?size={size}&page={page}")
+    PageInfo<Brand> fetchBrandAll(@PathVariable("size") Integer size, @PathVariable("page") Integer page);
 
     @PostMapping("/brand/save")
     boolean save(@RequestBody Brand brand);
