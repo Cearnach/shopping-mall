@@ -1,5 +1,6 @@
 package com.xmut.osm.goods.service;
 
+import com.xmut.osm.dto.SpecificationDTO;
 import com.xmut.osm.entity.Specification;
 import com.xmut.osm.service.base.BaseService;
 
@@ -8,4 +9,5 @@ import com.xmut.osm.service.base.BaseService;
  * @date 2018/7/30 14:24
  */
 public interface SpecificationService extends BaseService<Specification, Integer> {
+    Specification save(SpecificationDTO specificationDTO);
 }

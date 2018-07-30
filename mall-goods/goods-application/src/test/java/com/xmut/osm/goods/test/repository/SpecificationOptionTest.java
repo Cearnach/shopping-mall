@@ -6,6 +6,7 @@ import com.xmut.osm.repository.SpecificationOptionRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,5 +21,10 @@ public class SpecificationOptionTest extends BaseTest {
     public void find() {
         List<SpecificationOption> list = specificationOptionRepository.findBySpecificationId(132);
         System.out.println(list);
+    }
+
+    @Test
+    public void deleteAll() {
+        specificationOptionRepository.deleteAll(Arrays.asList(150, 151));
     }
 }

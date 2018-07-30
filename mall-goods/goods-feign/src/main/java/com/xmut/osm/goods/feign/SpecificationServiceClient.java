@@ -1,6 +1,7 @@
 package com.xmut.osm.goods.feign;
 
 import com.xmut.osm.common.bean.PageInfo;
+import com.xmut.osm.dto.SpecificationDTO;
 import com.xmut.osm.entity.Specification;
 import com.xmut.osm.entity.SpecificationOption;
 import com.xmut.osm.goods.constraint.FeignClientConstraints;
@@ -30,4 +31,7 @@ public interface SpecificationServiceClient extends BaseServiceClient<Specificat
 
     @GetMapping("/specification/option/{id}")
     List<SpecificationOption> fetchOption(@PathVariable("id") Integer id);
+
+    @PostMapping("/specification/saveDTO")
+    boolean save(@RequestBody SpecificationDTO specificationDTO);
 }

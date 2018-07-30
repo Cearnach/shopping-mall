@@ -8,7 +8,8 @@ app.service("specificationService", function ($http) {
     this.delete = function (selectedIds) {
         return $http.delete("/manager/specification/deleteAll?ids=" + selectedIds);
     };
-    this.findOption = function (specId) {
-        return $http.get("/manager/specification/option?specId=" + specId);
+    this.findOption = function (entity) {
+        console.log(entity);
+        return $http.get("/manager/specification/option?specId=" + entity.id);
     }
 });

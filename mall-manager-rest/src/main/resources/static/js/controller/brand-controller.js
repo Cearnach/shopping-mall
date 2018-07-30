@@ -20,7 +20,7 @@ app.controller("brandController", function ($scope, $http, $controller, brandSer
         $scope.paginationConf.currentPage = 1;
     };
     $scope.bindSaveData = function (entity) {
-        $scope.bindingEntity = entity;
+        $scope.entity = entity;
     };
     $scope.save = function () {
         if ($scope.entity === undefined) {

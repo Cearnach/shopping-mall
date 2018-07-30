@@ -1,16 +1,18 @@
 package com.xmut.osm.goods.controller;
 
 import com.xmut.osm.common.bean.PageInfo;
+import com.xmut.osm.dto.SpecificationDTO;
 import com.xmut.osm.entity.Specification;
 import com.xmut.osm.entity.SpecificationOption;
-import com.xmut.osm.exception.TargetEntityNotFound;
 import com.xmut.osm.form.PageBean;
 import com.xmut.osm.goods.service.SpecificationOptionService;
 import com.xmut.osm.goods.service.SpecificationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -48,5 +50,11 @@ public class SpecificationController {
     @GetMapping("/option/{specId}")
     public List<SpecificationOption> fetchEntity(@PathVariable("specId") Integer specId) {
         return specificationOptionService.findBySpecificationId(specId);
+    }
+
+    @PostMapping("/saveDTO")
+    public boolean save(@RequestBody SpecificationDTO specificationDTO) {
+        specificationService.save(specificationDTO);
+        return true;
     }
 }

@@ -20,7 +20,7 @@ app.controller("specificationController", function ($scope, $http, $controller, 
         $scope.paginationConf.currentPage = 1;
     };
     $scope.bindSaveData = function (entity) {
-        $scope.bindingEntity = entity;
+        $scope.entity = entity;
     };
     $scope.save = function () {
         if ($scope.entity === undefined) {
@@ -73,10 +73,12 @@ app.controller("specificationController", function ($scope, $http, $controller, 
             })
         }
     };
-    $scope.findOption = function (id) {
-        specificationService.findOption(id)
-            .then(function (value) {
-                console.log(value);
+    $scope.findOption = function (entity) {
+        $scope.entity = entity;
+        specificationService.findOption(entity)
+            .then(function (resp) {
+                $scope.entity.specificationOptionList = resp.data;
+                console.log($scope.entity);
             })
             .catch(function (reason) {
                 console.log(reason);

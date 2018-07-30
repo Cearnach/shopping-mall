@@ -3,6 +3,8 @@ package com.xmut.osm.manager.rest.controller;
 import com.xmut.osm.common.bean.PageBean;
 import com.xmut.osm.common.bean.PageInfo;
 import com.xmut.osm.common.bean.ResultVO;
+import com.xmut.osm.common.util.ResultVOUtil;
+import com.xmut.osm.dto.SpecificationDTO;
 import com.xmut.osm.entity.Specification;
 import com.xmut.osm.entity.SpecificationOption;
 import com.xmut.osm.goods.feign.SpecificationServiceClient;
@@ -11,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.util.List;
 
@@ -37,14 +40,19 @@ public class SpecificationController {
     }
 
     @PostMapping("/save")
-    public ResultVO save(@RequestBody Specification specification, BindingResult bindingResult) {
-        if (specification.getId() == null) {
-            specification.setId(0);
+    public ResultVO save(@RequestBody @Valid SpecificationDTO specificationDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResultVOUtil.generateResultVO(bindingResult);
         }
-
-        System.out.println(specification);
-        return null;
-        //return controllerTemplate.save(specification, bindingResult);
+        specificationDTO.getSpecificationOptionList().forEach(specificationOption -> {
+            if (specificationOption.getId() == null) {
+                specificationOption.setId(0);
+            }
+        });
+        ResultVO<String> resultVO = new ResultVO<>();
+        resultVO.setSuccess(specificationServiceClient.save(specificationDTO));
+        System.out.println(specificationDTO);
+        return resultVO;
     }
 
     @DeleteMapping("/deleteAll")

@@ -9,17 +9,6 @@ import org.springframework.validation.BindingResult;
  * @date: 2018/7/30 13:26
  */
 public class ResultVOUtil {
-  /*  private static final class SingletonReusltVO {
-        private static final ResultVOUtil RESULT_VO_INSTANCE = new ResultVOUtil();
-    }
-
-    public static ResultVOUtil getInstance() {
-        return SingletonReusltVO.RESULT_VO_INSTANCE;
-    }
-
-    private ResultVOUtil() {
-
-    }*/
 
     public static ResultVO generateResultVO(BindingResult bindingResult) {
         ResultVO resultVO = new ResultVO<>();
