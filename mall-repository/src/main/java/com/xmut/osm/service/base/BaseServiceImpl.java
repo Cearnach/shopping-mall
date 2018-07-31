@@ -1,7 +1,7 @@
 package com.xmut.osm.service.base;
 
+import com.xmut.osm.common.bean.PageBean;
 import com.xmut.osm.exception.TargetEntityNotFound;
-import com.xmut.osm.form.PageBean;
 import com.xmut.osm.repository.base.BaseRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

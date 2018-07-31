@@ -3,8 +3,8 @@ package com.xmut.osm.manager.rest.controller;
 import com.xmut.osm.common.bean.PageBean;
 import com.xmut.osm.common.bean.PageInfo;
 import com.xmut.osm.common.bean.ResultVO;
-import com.xmut.osm.entity.Brand;
-import com.xmut.osm.goods.feign.BrandServiceClient;
+import com.xmut.osm.entity.TypeTemplate;
+import com.xmut.osm.goods.feign.TypeTemplateClient;
 import com.xmut.osm.manager.rest.util.ControllerTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
@@ -14,30 +14,30 @@ import java.util.List;
 
 /**
  * @author 阮胜
- * @date 2018/7/22 23:34
+ * @date 2018/7/31 14:42
  */
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @RestController
-@RequestMapping("/brand")
 @Slf4j
-public class BrandController {
-    private final ControllerTemplate<Brand> controllerTemplate;
+@RequestMapping("/typeTemplate")
+public class TypeTemplateController {
+    private final ControllerTemplate<TypeTemplate> controllerTemplate;
 
-    public BrandController(BrandServiceClient brandServiceClient) {
-        this.controllerTemplate = ControllerTemplate.getInstance(brandServiceClient);
+    public TypeTemplateController(TypeTemplateClient typeTemplateClient) {
+        controllerTemplate = ControllerTemplate.getInstance(typeTemplateClient);
     }
 
     @GetMapping("/all")
-    public PageInfo<Brand> fetchAll(PageBean pageBean) {
+    public PageInfo<TypeTemplate> fetchAll(PageBean pageBean) {
         return controllerTemplate.fetchAll(pageBean);
     }
 
     @PostMapping("/save")
-    public ResultVO save(@RequestBody Brand brand, BindingResult bindingResult) {
-        if (brand.getId() == null) {
-            brand.setId(0);
+    public ResultVO save(@RequestBody TypeTemplate typeTemplate, BindingResult bindingResult) {
+        if (typeTemplate.getId() == null) {
+            typeTemplate.setId(0);
         }
-        return controllerTemplate.save(brand, bindingResult);
+        return controllerTemplate.save(typeTemplate, bindingResult);
     }
 
     @DeleteMapping("/deleteAll")

@@ -1,18 +1,16 @@
 package com.xmut.osm.goods.controller;
 
+import com.xmut.osm.common.bean.PageBean;
 import com.xmut.osm.common.bean.PageInfo;
 import com.xmut.osm.dto.SpecificationDTO;
 import com.xmut.osm.entity.Specification;
 import com.xmut.osm.entity.SpecificationOption;
-import com.xmut.osm.form.PageBean;
 import com.xmut.osm.goods.service.SpecificationOptionService;
 import com.xmut.osm.goods.service.SpecificationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**

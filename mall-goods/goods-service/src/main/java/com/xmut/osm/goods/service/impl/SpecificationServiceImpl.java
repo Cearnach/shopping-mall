@@ -42,7 +42,7 @@ public class SpecificationServiceImpl extends BaseServiceImpl<Specification, Int
                     return specificationOptionRepository.save(specificationOption).getId();
                 }).filter(id -> id != 0)
                 .collect(Collectors.toList());
-        //查找出需要删除的id
+        //查找出需要删除的optionId
         List<Integer> deleteIdList = specificationOptionRepository
                 .findBySpecificationIdAndIdNotIn(specificationDTO.getId(), optionIdList);
         if (!CollectionUtils.isEmpty(deleteIdList)) {

@@ -5,6 +5,7 @@ import com.xmut.osm.goods.service.SpecificationOptionService;
 import com.xmut.osm.repository.SpecificationOptionRepository;
 import com.xmut.osm.service.base.BaseServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @date 2018/7/30 14:26
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class SpecificationOptionServiceImpl extends BaseServiceImpl<SpecificationOption, Integer, SpecificationOptionRepository>
         implements SpecificationOptionService {
 

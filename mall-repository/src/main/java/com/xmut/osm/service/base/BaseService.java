@@ -1,7 +1,7 @@
 package com.xmut.osm.service.base;
 
+import com.xmut.osm.common.bean.PageBean;
 import com.xmut.osm.exception.TargetEntityNotFound;
-import com.xmut.osm.form.PageBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

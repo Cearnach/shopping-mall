@@ -1,8 +1,8 @@
 package com.xmut.osm.goods.controller;
 
+import com.xmut.osm.common.bean.PageBean;
 import com.xmut.osm.common.bean.PageInfo;
 import com.xmut.osm.entity.Brand;
-import com.xmut.osm.form.PageBean;
 import com.xmut.osm.goods.service.BrandService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
