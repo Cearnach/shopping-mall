@@ -8,7 +8,7 @@ $(function () {
             })
 //    $.ajax ({
 //        type:"GET",
-//        url:"../data/list-data.json",
+//        loginUrl:"../data/list-data.json",
 //        dataType:"json",
 //        cache:false,
 //        success:function(data){

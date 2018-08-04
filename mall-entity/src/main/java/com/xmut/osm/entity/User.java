@@ -17,7 +17,7 @@ import java.util.Date;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "user_")
+@Table(name = "tb_user")
 public class User implements Serializable {
     @Id
     @GeneratedValue

@@ -17,6 +17,8 @@
         <module>mall-cloud-gateway</module>
         <module>mall-manager-rest</module>
         <module>mall-security</module>
+        <module>mall-auth-center</module>
+        <module>mall-user</module>
     </modules>
     <packaging>pom</packaging>
 

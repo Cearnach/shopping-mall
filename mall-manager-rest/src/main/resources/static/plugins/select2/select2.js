@@ -387,8 +387,8 @@ the specific language governing permissions and limitations under the Apache Lic
      * @param options object containing configuration parameters
      * @param options.params parameter map for the transport ajax call, can contain such options as cache, jsonpCallback, etc. see $.ajax
      * @param options.transport function that will be used to execute the ajax request. must be compatible with parameters supported by $.ajax
-     * @param options.url url for the data
-     * @param options.data a function(searchTerm, pageNumber, context) that should return an object containing query string parameters for the above url.
+     * @param options.loginUrl loginUrl for the data
+     * @param options.data a function(searchTerm, pageNumber, context) that should return an object containing query string parameters for the above loginUrl.
      * @param options.dataType request data type: ajax, jsonp, other datatypes supported by jQuery's $.ajax function or the transport function if specified
      * @param options.quietMillis (optional) milliseconds to wait before making the ajaxRequest, helps debounce the ajax function if invoked too often
      * @param options.results a function(remoteData, pageNumber) that converts data returned form the remote request to the format expected by Select2.
@@ -408,7 +408,7 @@ the specific language governing permissions and limitations under the Apache Lic
             window.clearTimeout(timeout);
             timeout = window.setTimeout(function () {
                 var data = options.data, // ajax data function
-                    url = ajaxUrl, // ajax url string or function
+                    url = ajaxUrl, // ajax loginUrl string or function
                     transport = options.transport || $.fn.select2.ajaxDefaults.transport,
                     // deprecated - to be removed in 4.0  - use params instead
                     deprecated = {
@@ -1011,7 +1011,7 @@ the specific language governing permissions and limitations under the Apache Lic
                 if (!("query" in opts)) {
 
                     if ("ajax" in opts) {
-                        ajaxUrl = opts.element.data("ajax-url");
+                        ajaxUrl = opts.element.data("ajax-loginUrl");
                         if (ajaxUrl && ajaxUrl.length > 0) {
                             opts.ajax.url = ajaxUrl;
                         }
