@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 阮胜
@@ -60,8 +61,8 @@ public class User implements Serializable {
 
     private String gender;
 
-    @ManyToOne
-    private Role role;
+    @ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
+    private List<Role> roles;
 
     /**
      * 用户等级
