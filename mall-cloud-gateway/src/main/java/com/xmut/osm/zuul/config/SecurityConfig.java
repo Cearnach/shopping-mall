@@ -1,6 +1,5 @@
 package com.xmut.osm.zuul.config;
 
-import com.xmut.osm.common.enumeration.RoleEnum;
 import com.xmut.osm.security.property.JwtAuthenticationProperties;
 import com.xmut.osm.security.provider.AuthorizeConfigProviderManager;
 import com.xmut.osm.zuul.filter.JwtTokenAuthenticationFilter;
@@ -35,9 +34,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .logout().disable()
                 .formLogin().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
                 .anonymous()
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .exceptionHandling().authenticationEntryPoint(
                 (req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED))
@@ -45,7 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(new JwtTokenAuthenticationFilter(jwtAuthenticationProperties),
                         UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers(jwtAuthenticationProperties.getLoginUrl()).permitAll();
+                .antMatchers(jwtAuthenticationProperties.getLoginUrl()).permitAll()
+                .anyRequest().authenticated();
 
     }
 }
