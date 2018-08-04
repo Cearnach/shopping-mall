@@ -61,7 +61,7 @@ public class User implements Serializable {
 
     private String gender;
 
-    @ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToMany
     private List<Role> roles;
 
     /**

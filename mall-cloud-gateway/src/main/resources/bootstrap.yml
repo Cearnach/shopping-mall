@@ -14,16 +14,18 @@ spring:
         max-idle: 8
         min-idle: 0
   cloud:
-      config:
-        discovery:
-          enabled: true
-          service-id: config-center
-        label: master
+    config:
+      discovery:
+        enabled: true
+        service-id: config-center
+      label: master
   application:
     name: gateway-service
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:9001/eureka/
+      defaultZone: http://${eureka.instance.hostname}:9010/eureka/
+  instance:
+    hostname: localhost
 server:
   port: 9000

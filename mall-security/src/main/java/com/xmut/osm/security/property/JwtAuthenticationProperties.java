@@ -33,5 +33,5 @@ public class JwtAuthenticationProperties {
      */
     private int expiration = 60 * 60 * 24 * 7;
 
-    private String secret;
+    private String secret = "*H4@r&m-";
 }

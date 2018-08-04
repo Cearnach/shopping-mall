@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.http.HttpServletResponse;
@@ -21,19 +22,14 @@ import javax.servlet.http.HttpServletResponse;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-   private final JwtAuthenticationProperties jwtAuthenticationProperties;
+    private final JwtAuthenticationProperties jwtAuthenticationProperties;
+    private final UserDetailsService userDetailsService;
 
-    public SecurityConfig(JwtAuthenticationProperties jwtAuthenticationProperties) {
+    public SecurityConfig(JwtAuthenticationProperties jwtAuthenticationProperties, UserDetailsService userDetailsService) {
         this.jwtAuthenticationProperties = jwtAuthenticationProperties;
+        this.userDetailsService = userDetailsService;
     }
 
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin").password("admin").roles("ADMIN", "USER").and()
-                .withUser("jack").password("jack").roles("USER");
-    }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -48,7 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(
                 (req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED))
                 .and()
-                .addFilterAfter(new JwtUserAuthenticationFilter(jwtAuthenticationProperties),
+                .userDetailsService(userDetailsService)
+                .addFilterBefore(new JwtUserAuthenticationFilter(jwtAuthenticationProperties, authenticationManager()),
                         UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers(jwtAuthenticationProperties.getLoginUrl()).permitAll()

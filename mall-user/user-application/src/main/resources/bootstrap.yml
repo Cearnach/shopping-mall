@@ -1,6 +1,27 @@
 spring:
   application:
     name: user-service
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql:///shopping_mall?characterEncoding=utf-8&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect #不加这句则默认为myisam引擎
+    show-sql: true
+    open-in-view: true
+  output:
+    ansi:
+      enabled: always
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
   cloud:
     config:
       discovery:
@@ -10,7 +31,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://${eureka.instance.hostname}:9001/eureka/
+      defaultZone: http://${eureka.instance.hostname}:9010/eureka/
   instance:
     hostname: localhost
 server:
