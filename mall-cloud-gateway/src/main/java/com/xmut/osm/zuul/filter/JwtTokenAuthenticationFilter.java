@@ -26,6 +26,10 @@ import java.util.stream.Collectors;
 @Slf4j
 public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
 
+    /**
+     * 用户权限列表
+     */
+    private static final String AUTHORITIES = "authorities";
     private final JwtAuthenticationProperties jwtAuthenticationProperties;
 
     public JwtTokenAuthenticationFilter(JwtAuthenticationProperties jwtAuthenticationProperties) {
@@ -43,7 +47,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
                 System.out.println(claims);
                 String username = claims.getSubject();
                 @SuppressWarnings("unchecked")
-                List<String> authorities = claims.get("authorities", List.class);
+                List<String> authorities = claims.get(AUTHORITIES, List.class);
                 if (!StringUtils.isEmpty(username) && !CollectionUtils.isEmpty(authorities)) {
                     List<SimpleGrantedAuthority> grantedAuthorityList = authorities.stream()
                             .map(SimpleGrantedAuthority::new)
