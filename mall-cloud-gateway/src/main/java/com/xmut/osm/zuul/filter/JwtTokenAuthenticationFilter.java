@@ -27,19 +27,17 @@ import java.util.stream.Collectors;
 public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtAuthenticationProperties jwtAuthenticationProperties;
-    private final String tokenPrefix;
 
     public JwtTokenAuthenticationFilter(JwtAuthenticationProperties jwtAuthenticationProperties) {
         this.jwtAuthenticationProperties = jwtAuthenticationProperties;
-        tokenPrefix = jwtAuthenticationProperties.getPrefix().concat(" ");
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         String tokenHeader = request.getHeader(jwtAuthenticationProperties.getHeader());
-        if (!StringUtils.isEmpty(tokenHeader) && tokenHeader.startsWith(tokenPrefix)) {
-            String jwtToken = tokenHeader.replace(tokenPrefix, "");
+        if (!StringUtils.isEmpty(tokenHeader) && tokenHeader.startsWith(jwtAuthenticationProperties.getPrefix())) {
+            String jwtToken = tokenHeader.replace(jwtAuthenticationProperties.getPrefix(), "");
             try {
                 Claims claims = JwtTokenUtil.parse(jwtToken, jwtAuthenticationProperties.getSecret());
                 System.out.println(claims);

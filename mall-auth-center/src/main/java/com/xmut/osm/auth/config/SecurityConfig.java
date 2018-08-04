@@ -1,10 +1,11 @@
 package com.xmut.osm.auth.config;
 
 import com.xmut.osm.auth.filter.JwtUserAuthenticationFilter;
+import com.xmut.osm.auth.handler.JwtAuthenticationFailureHandler;
+import com.xmut.osm.auth.handler.JwtAuthenticationSuccessHandler;
 import com.xmut.osm.security.property.JwtAuthenticationProperties;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -24,10 +25,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtAuthenticationProperties jwtAuthenticationProperties;
     private final UserDetailsService userDetailsService;
-
-    public SecurityConfig(JwtAuthenticationProperties jwtAuthenticationProperties, UserDetailsService userDetailsService) {
+    private final JwtAuthenticationSuccessHandler jwtAuthenticationSuccessHandler;
+    private final JwtAuthenticationFailureHandler jwtAuthenticationFailureHandler;
+    public SecurityConfig(JwtAuthenticationProperties jwtAuthenticationProperties, UserDetailsService userDetailsService, JwtAuthenticationSuccessHandler jwtAuthenticationSuccessHandler, JwtAuthenticationFailureHandler jwtAuthenticationFailureHandler) {
         this.jwtAuthenticationProperties = jwtAuthenticationProperties;
         this.userDetailsService = userDetailsService;
+        this.jwtAuthenticationSuccessHandler = jwtAuthenticationSuccessHandler;
+        this.jwtAuthenticationFailureHandler = jwtAuthenticationFailureHandler;
     }
 
 
@@ -45,10 +49,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 (req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED))
                 .and()
                 .userDetailsService(userDetailsService)
-                .addFilterBefore(new JwtUserAuthenticationFilter(jwtAuthenticationProperties, authenticationManager()),
+                .addFilterBefore(jwtUserAuthenticationFilter(),
                         UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers(jwtAuthenticationProperties.getLoginUrl()).permitAll()
                 .anyRequest().authenticated();
     }
+
+    @Bean
+    JwtUserAuthenticationFilter jwtUserAuthenticationFilter() throws Exception {
+        JwtUserAuthenticationFilter jwtUserAuthenticationFilter = new JwtUserAuthenticationFilter(jwtAuthenticationProperties, authenticationManager());
+        jwtUserAuthenticationFilter.setAuthenticationSuccessHandler(jwtAuthenticationSuccessHandler);
+        jwtUserAuthenticationFilter.setAuthenticationFailureHandler(jwtAuthenticationFailureHandler);
+        return jwtUserAuthenticationFilter;
+    }
+
 }

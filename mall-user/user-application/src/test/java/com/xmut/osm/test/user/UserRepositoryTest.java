@@ -27,11 +27,13 @@ public class UserRepositoryTest extends BaseTest {
 
         User user = new User();
         user.setAccount("jack");
+        user.setPassword("jackpwd");
         user.setRoles(Arrays.asList(roleAdmin, roleUser));
         userRepository.save(user);
 
         User user2 = new User();
         user2.setAccount("rose");
+        user2.setPassword("rosepwd");
         user2.setRoles(Arrays.asList(roleUser));
         userRepository.save(user2);
     }

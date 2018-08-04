@@ -5,6 +5,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -24,6 +25,7 @@ public class User implements Serializable {
     @GeneratedValue
     private Long id;
 
+    @NotBlank
     private String password;
 
     /**
@@ -34,6 +36,7 @@ public class User implements Serializable {
     /**
      * 账号
      */
+    @NotBlank
     private String account;
 
     private String phone;
@@ -61,7 +64,7 @@ public class User implements Serializable {
 
     private String gender;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
     /**
