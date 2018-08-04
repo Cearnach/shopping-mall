@@ -1,6 +1,6 @@
 package com.xmut.osm.auth.config;
 
-import com.xmut.osm.auth.filter.JwtUserAuthenticationFilter;
+import com.xmut.osm.auth.filter.JwtUsernameAndPasswordAuthenticationFilter;
 import com.xmut.osm.auth.handler.JwtAuthenticationFailureHandler;
 import com.xmut.osm.auth.handler.JwtAuthenticationSuccessHandler;
 import com.xmut.osm.security.property.JwtAuthenticationProperties;
@@ -57,11 +57,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    JwtUserAuthenticationFilter jwtUserAuthenticationFilter() throws Exception {
-        JwtUserAuthenticationFilter jwtUserAuthenticationFilter = new JwtUserAuthenticationFilter(jwtAuthenticationProperties, authenticationManager());
-        jwtUserAuthenticationFilter.setAuthenticationSuccessHandler(jwtAuthenticationSuccessHandler);
-        jwtUserAuthenticationFilter.setAuthenticationFailureHandler(jwtAuthenticationFailureHandler);
-        return jwtUserAuthenticationFilter;
+    JwtUsernameAndPasswordAuthenticationFilter jwtUserAuthenticationFilter() throws Exception {
+        JwtUsernameAndPasswordAuthenticationFilter jwtUsernameAndPasswordAuthenticationFilter = new JwtUsernameAndPasswordAuthenticationFilter(jwtAuthenticationProperties, authenticationManager());
+        jwtUsernameAndPasswordAuthenticationFilter.setAuthenticationSuccessHandler(jwtAuthenticationSuccessHandler);
+        jwtUsernameAndPasswordAuthenticationFilter.setAuthenticationFailureHandler(jwtAuthenticationFailureHandler);
+        return jwtUsernameAndPasswordAuthenticationFilter;
     }
 
 }

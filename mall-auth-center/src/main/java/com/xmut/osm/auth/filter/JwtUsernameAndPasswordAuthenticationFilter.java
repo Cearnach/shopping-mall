@@ -21,12 +21,12 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.stream.Collectors;
 
-public class JwtUserAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private static final String POST = "POST";
     private final JwtAuthenticationProperties jwtAuthenticationProperties;
 
-    public JwtUserAuthenticationFilter(JwtAuthenticationProperties jwtAuthenticationProperties, AuthenticationManager authenticationManager) {
+    public JwtUsernameAndPasswordAuthenticationFilter(JwtAuthenticationProperties jwtAuthenticationProperties, AuthenticationManager authenticationManager) {
         this.jwtAuthenticationProperties = jwtAuthenticationProperties;
         this.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher(jwtAuthenticationProperties.getLoginUrl(), POST));
         this.setAuthenticationManager(authenticationManager);

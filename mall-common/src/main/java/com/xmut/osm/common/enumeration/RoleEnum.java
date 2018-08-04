@@ -1,22 +1,23 @@
-package com.xmut.osm.enumeration;
+package com.xmut.osm.common.enumeration;
 
 import lombok.Getter;
 
 /**
  * @author 阮胜
- * @date 2018/7/22 22:13
+ * @date 2018/8/4 21:29
  */
 @Getter
-public enum UserStatusEnum {
+public enum RoleEnum {
     /**
      * code=编号,name=描述
      */
-    NORMAL(10, "正常使用"),
-    FROZEN(20, "账号被冻结");
+    ADMIN(100, "超级管理员"),
+    USER(200, "普通用户");
+
     private Integer code;
     private String name;
 
-    UserStatusEnum(Integer code, String name) {
+    RoleEnum(Integer code, String name) {
         this.code = code;
         this.name = name;
     }

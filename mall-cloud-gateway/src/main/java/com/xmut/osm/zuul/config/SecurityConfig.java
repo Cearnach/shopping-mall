@@ -1,5 +1,6 @@
 package com.xmut.osm.zuul.config;
 
+import com.xmut.osm.common.enumeration.RoleEnum;
 import com.xmut.osm.security.property.JwtAuthenticationProperties;
 import com.xmut.osm.security.provider.AuthorizeConfigProviderManager;
 import com.xmut.osm.zuul.filter.JwtTokenAuthenticationFilter;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtAuthenticationProperties jwtAuthenticationProperties;
     private final AuthorizeConfigProviderManager authorizeConfigProviderManager;
+
     public SecurityConfig(JwtAuthenticationProperties jwtAuthenticationProperties, AuthorizeConfigProviderManager authorizeConfigProviderManager) {
         this.jwtAuthenticationProperties = jwtAuthenticationProperties;
         this.authorizeConfigProviderManager = authorizeConfigProviderManager;
@@ -29,7 +31,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         //手动实现的权限验证管理器
         authorizeConfigProviderManager.configure(http.authorizeRequests());
-
         http
                 .csrf().disable()
                 .logout().disable()
@@ -45,5 +46,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers(jwtAuthenticationProperties.getLoginUrl()).permitAll();
+
     }
 }

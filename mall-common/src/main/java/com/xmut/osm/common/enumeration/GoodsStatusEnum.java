@@ -1,4 +1,4 @@
-package com.xmut.osm.enumeration;
+package com.xmut.osm.common.enumeration;
 
 import lombok.Getter;
 

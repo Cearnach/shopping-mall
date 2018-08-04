@@ -1,6 +1,5 @@
 package com.xmut.osm.auth.service;
 
-import com.xmut.osm.entity.Role;
 import com.xmut.osm.entity.User;
 import com.xmut.osm.repository.UserRepository;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -20,6 +19,7 @@ import java.util.stream.Collectors;
 @Component
 public class UserDetailServiceImpl implements UserDetailsService {
     private static final String USER_NOT_EXIST = "用户不存在";
+    public static final String ROLE_PREFIX = "ROLE_";
     private static final String ROLE_DELIMITED = ",";
     private final UserRepository userRepository;
 
@@ -32,7 +32,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         User user = userRepository.findByAccount(username)
                 .orElseThrow(() -> new UsernameNotFoundException(USER_NOT_EXIST));
         List<String> roleNames = user.getRoles().stream()
-                .map(Role::getName)
+                .map(role -> ROLE_PREFIX.concat(role.getName()))
                 .collect(Collectors.toList());
         String roles = StringUtils.collectionToDelimitedString(roleNames, ROLE_DELIMITED);
         return new org.springframework.security.core.userdetails.User(user.getAccount(), user.getPassword()

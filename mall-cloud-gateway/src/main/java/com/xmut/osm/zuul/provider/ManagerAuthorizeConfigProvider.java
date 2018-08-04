@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author 阮胜
- * @date 2018/8/4 15:18
+ * @date 2018/8/4 22:31
  */
 @Component
-public class UserAuthorizeConfigProvider implements AuthorizeConfigProvider {
+public class ManagerAuthorizeConfigProvider implements AuthorizeConfigProvider {
     @Override
     public void configure(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
-        config.antMatchers("/user/info").hasRole(RoleEnum.USER.getName());
+        config.antMatchers("/manager/**").hasRole(RoleEnum.ADMIN.getName());
     }
 }
