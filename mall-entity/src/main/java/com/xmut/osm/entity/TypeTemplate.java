@@ -19,11 +19,9 @@ public class TypeTemplate {
     private String name;
 
     @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "spec_id")
     private List<Specification> specificationList;
 
     @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "brand_id")
     private List<Brand> brandList;
 
     private String customAttribute;

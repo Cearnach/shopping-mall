@@ -51,7 +51,6 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
             String jwtToken = token.replace(jwtAuthenticationProperties.getPrefix(), "");
             try {
                 Claims claims = JwtTokenUtil.parse(jwtToken, jwtAuthenticationProperties.getSecret());
-                System.out.println(claims);
                 String username = claims.getSubject();
                 @SuppressWarnings("unchecked")
                 List<String> authorities = claims.get(AUTHORITIES, List.class);

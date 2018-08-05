@@ -17,7 +17,13 @@ app.controller("brandController", function ($scope, $http, $controller, brandSer
     };
 
     $scope.refreshList = function () {
-        $scope.paginationConf.currentPage = 1;
+
+        var currentPage = $scope.paginationConf.currentPage;
+        if (currentPage === 1) {
+            $scope.paginationConf.currentPage = 0;
+        } else {
+            $scope.paginationConf.currentPage = 1;
+        }
     };
     $scope.bindSaveData = function (entity) {
         $scope.entity = entity;
