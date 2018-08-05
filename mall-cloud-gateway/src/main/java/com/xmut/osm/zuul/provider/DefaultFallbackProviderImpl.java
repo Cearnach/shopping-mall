@@ -1,4 +1,4 @@
-package com.xmut.osm.zuul.filter;
+package com.xmut.osm.zuul.provider;
 
 import com.alibaba.fastjson.JSON;
 import com.xmut.osm.common.bean.ResultVO;

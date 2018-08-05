@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         authorizeConfigProviderManager.configure(http.authorizeRequests());
         http
                 .csrf().disable()
+                .headers().frameOptions().disable().and()
                 .logout().disable()
                 .formLogin().disable()
                 .anonymous()

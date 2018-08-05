@@ -13,6 +13,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -20,6 +21,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * 该过滤器用于验证用户权限
+ *
  * @author 阮胜
  * @date 2018/8/4 14:28
  */
@@ -39,9 +42,13 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        String tokenHeader = request.getHeader(jwtAuthenticationProperties.getHeader());
-        if (!StringUtils.isEmpty(tokenHeader) && tokenHeader.startsWith(jwtAuthenticationProperties.getPrefix())) {
-            String jwtToken = tokenHeader.replace(jwtAuthenticationProperties.getPrefix(), "");
+        Cookie[] cookies = request.getCookies();
+        String token = fetchCookie(cookies);
+        if (StringUtils.isEmpty(token)) {
+            token = request.getHeader(jwtAuthenticationProperties.getHeader());
+        }
+        if (!StringUtils.isEmpty(token) && token.startsWith(jwtAuthenticationProperties.getPrefix())) {
+            String jwtToken = token.replace(jwtAuthenticationProperties.getPrefix(), "");
             try {
                 Claims claims = JwtTokenUtil.parse(jwtToken, jwtAuthenticationProperties.getSecret());
                 System.out.println(claims);
@@ -62,5 +69,16 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
             }
         }
         filterChain.doFilter(request, response);
+    }
+
+    private String fetchCookie(Cookie[] cookies) {
+        if (cookies != null && cookies.length > 0) {
+            for (Cookie cookie : cookies) {
+                if (jwtAuthenticationProperties.getHeader().equals(cookie.getName())) {
+                    return cookie.getValue();
+                }
+            }
+        }
+        return null;
     }
 }
