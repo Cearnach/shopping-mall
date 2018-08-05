@@ -1,4 +1,4 @@
-package com.xmut.osm.zuul.provider;
+package com.xmut.osm.manager.rest.security.provider;
 
 import com.xmut.osm.common.enumeration.RoleEnum;
 import com.xmut.osm.security.provider.AuthorizeConfigProvider;
@@ -14,8 +14,12 @@ import org.springframework.stereotype.Component;
 public class ManagerAuthorizeConfigProvider implements AuthorizeConfigProvider {
     @Override
     public void configure(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
-        config
-                .antMatchers("/manager/**").permitAll()
-                .antMatchers("/manager/login.html").permitAll();
+        config.antMatchers(
+                "/css/**",
+                "/img/**",
+                "/js/**",
+                "/plugins/**",
+                "/login.html").permitAll()
+                .antMatchers("/**").hasRole(RoleEnum.ADMIN.getName());
     }
 }

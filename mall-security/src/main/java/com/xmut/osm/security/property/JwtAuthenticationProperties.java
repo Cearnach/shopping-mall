@@ -27,9 +27,9 @@ public class JwtAuthenticationProperties {
     private String header = "Authorization";
 
     /**
-     * Authorization 字符串的起始字符
+     * Authorization 字符串的起始字符 , 官方文档规范为 Bearer 开头
      */
-    private String prefix = "ruan";
+    private String prefix = "Bearer";
 
     /**
      * 过期时间 单位:秒

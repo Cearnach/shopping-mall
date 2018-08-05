@@ -1,4 +1,4 @@
-package com.xmut.osm.zuul.provider;
+package com.xmut.osm.manager.rest.security.provider;
 
 import com.xmut.osm.security.provider.AuthorizeConfigProvider;
 import com.xmut.osm.security.provider.AuthorizeConfigProviderManager;

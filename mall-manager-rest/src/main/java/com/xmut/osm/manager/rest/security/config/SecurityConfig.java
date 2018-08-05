@@ -1,8 +1,8 @@
-package com.xmut.osm.zuul.config;
+package com.xmut.osm.manager.rest.security.config;
 
+import com.xmut.osm.security.filter.JwtTokenAuthenticationFilter;
 import com.xmut.osm.security.property.JwtAuthenticationProperties;
 import com.xmut.osm.security.provider.AuthorizeConfigProviderManager;
-import com.xmut.osm.zuul.filter.JwtTokenAuthenticationFilter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;

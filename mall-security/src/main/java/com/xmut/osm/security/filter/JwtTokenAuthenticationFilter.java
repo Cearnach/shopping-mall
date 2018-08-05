@@ -1,4 +1,4 @@
-package com.xmut.osm.zuul.filter;
+package com.xmut.osm.security.filter;
 
 import com.xmut.osm.security.property.JwtAuthenticationProperties;
 import com.xmut.osm.security.util.JwtTokenUtil;
