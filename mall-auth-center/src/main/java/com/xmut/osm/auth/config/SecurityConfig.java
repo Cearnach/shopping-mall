@@ -30,8 +30,6 @@ import javax.servlet.http.HttpServletResponse;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtAuthenticationProperties jwtAuthenticationProperties;
-    private final JwtAuthenticationSuccessHandler jwtAuthenticationSuccessHandler;
-    private final JwtAuthenticationFailureHandler jwtAuthenticationFailureHandler;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -43,10 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService sellerDetailService;
 
 
-    public SecurityConfig(JwtAuthenticationProperties jwtAuthenticationProperties, JwtAuthenticationSuccessHandler jwtAuthenticationSuccessHandler, JwtAuthenticationFailureHandler jwtAuthenticationFailureHandler, PasswordEncoder passwordEncoder) {
+    public SecurityConfig(JwtAuthenticationProperties jwtAuthenticationProperties, PasswordEncoder passwordEncoder) {
         this.jwtAuthenticationProperties = jwtAuthenticationProperties;
-        this.jwtAuthenticationSuccessHandler = jwtAuthenticationSuccessHandler;
-        this.jwtAuthenticationFailureHandler = jwtAuthenticationFailureHandler;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -92,21 +88,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean("jwtUserUsernameAndPasswordAuthenticationFilter")
     JwtUserUsernameAndPasswordAuthenticationFilter jwtUserAuthenticationFilter() throws Exception {
-        JwtUserUsernameAndPasswordAuthenticationFilter jwtUserUsernameAndPasswordAuthenticationFilter =
-                new JwtUserUsernameAndPasswordAuthenticationFilter(jwtAuthenticationProperties.getUserLoginUrl(),
-                        jwtAuthenticationProperties, authenticationManager());
-        jwtUserUsernameAndPasswordAuthenticationFilter.setAuthenticationSuccessHandler(jwtAuthenticationSuccessHandler);
-        jwtUserUsernameAndPasswordAuthenticationFilter.setAuthenticationFailureHandler(jwtAuthenticationFailureHandler);
-        return jwtUserUsernameAndPasswordAuthenticationFilter;
+        return new JwtUserUsernameAndPasswordAuthenticationFilter(
+                jwtAuthenticationProperties.getUserLoginUrl(),
+                jwtAuthenticationProperties, authenticationManager()
+        );
     }
 
     @Bean("jwtSellerUsernameAndPasswordAuthenticationFilter")
     JwtUserUsernameAndPasswordAuthenticationFilter jwtSellerAuthenticationFilter() throws Exception {
-        JwtUserUsernameAndPasswordAuthenticationFilter jwtUserUsernameAndPasswordAuthenticationFilter =
-                new JwtUserUsernameAndPasswordAuthenticationFilter(jwtAuthenticationProperties.getSellerLoginUrl(),
-                        jwtAuthenticationProperties, authenticationManager());
-        jwtUserUsernameAndPasswordAuthenticationFilter.setAuthenticationSuccessHandler(jwtAuthenticationSuccessHandler);
-        jwtUserUsernameAndPasswordAuthenticationFilter.setAuthenticationFailureHandler(jwtAuthenticationFailureHandler);
-        return jwtUserUsernameAndPasswordAuthenticationFilter;
+        return new JwtUserUsernameAndPasswordAuthenticationFilter(
+                jwtAuthenticationProperties.getSellerLoginUrl(),
+                jwtAuthenticationProperties, authenticationManager()
+        );
     }
 }

@@ -71,10 +71,10 @@ public class UserDetailsAuthenticationProvider extends AbstractUserDetailsAuthen
     }
 
     /**
-     * 通过该方法来决定是否使用该provider,true为使用该provider.反之亦然.
+     * 通过该方法来决定是否使用该provider
      *
-     * @param authentication
-     * @return
+     * @param authentication UsernameAndPasswordAuthenticationFilter 过滤器传过来的Token类型
+     * @return true为使用该provider.反之亦然.
      */
     @Override
     public boolean supports(Class<?> authentication) {
