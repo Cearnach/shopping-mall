@@ -5,7 +5,6 @@ import com.xmut.osm.auth.handler.JwtAuthenticationFailureHandler;
 import com.xmut.osm.auth.handler.JwtAuthenticationSuccessHandler;
 import com.xmut.osm.auth.provider.SellerDetailsAuthenticationProvider;
 import com.xmut.osm.auth.provider.UserDetailsAuthenticationProvider;
-import com.xmut.osm.security.encoder.DefaultPasswordEncoder;
 import com.xmut.osm.security.property.JwtAuthenticationProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,6 +30,10 @@ import javax.servlet.http.HttpServletResponse;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtAuthenticationProperties jwtAuthenticationProperties;
+    private final JwtAuthenticationSuccessHandler jwtAuthenticationSuccessHandler;
+    private final JwtAuthenticationFailureHandler jwtAuthenticationFailureHandler;
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
     @Qualifier("userDetailService")
     private UserDetailsService userDetailsService;
@@ -39,17 +42,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("sellerDetailService")
     private UserDetailsService sellerDetailService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
-    public SecurityConfig(JwtAuthenticationProperties jwtAuthenticationProperties, JwtAuthenticationSuccessHandler jwtAuthenticationSuccessHandler, JwtAuthenticationFailureHandler jwtAuthenticationFailureHandler) {
+    public SecurityConfig(JwtAuthenticationProperties jwtAuthenticationProperties, JwtAuthenticationSuccessHandler jwtAuthenticationSuccessHandler, JwtAuthenticationFailureHandler jwtAuthenticationFailureHandler, PasswordEncoder passwordEncoder) {
         this.jwtAuthenticationProperties = jwtAuthenticationProperties;
         this.jwtAuthenticationSuccessHandler = jwtAuthenticationSuccessHandler;
         this.jwtAuthenticationFailureHandler = jwtAuthenticationFailureHandler;
+        this.passwordEncoder = passwordEncoder;
     }
-
-    private final JwtAuthenticationSuccessHandler jwtAuthenticationSuccessHandler;
-    private final JwtAuthenticationFailureHandler jwtAuthenticationFailureHandler;
 
 
     @Override
@@ -84,9 +83,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(
                 (req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED))
                 .and()
-//                .userDetailsService(userDetailsService)
-//                .addFilterBefore(jwtUserAuthenticationFilter(),
-//                        UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers(jwtAuthenticationProperties.getUserLoginUrl(), jwtAuthenticationProperties.getSellerLoginUrl())
                 .permitAll()
@@ -94,7 +90,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
     }
 
-    @Bean("JwtUserUsernameAndPasswordAuthenticationFilter")
+    @Bean("jwtUserUsernameAndPasswordAuthenticationFilter")
     JwtUserUsernameAndPasswordAuthenticationFilter jwtUserAuthenticationFilter() throws Exception {
         JwtUserUsernameAndPasswordAuthenticationFilter jwtUserUsernameAndPasswordAuthenticationFilter =
                 new JwtUserUsernameAndPasswordAuthenticationFilter(jwtAuthenticationProperties.getUserLoginUrl(),
@@ -104,18 +100,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return jwtUserUsernameAndPasswordAuthenticationFilter;
     }
 
-    @Bean("JwtSellerUsernameAndPasswordAuthenticationFilter")
+    @Bean("jwtSellerUsernameAndPasswordAuthenticationFilter")
     JwtUserUsernameAndPasswordAuthenticationFilter jwtSellerAuthenticationFilter() throws Exception {
         JwtUserUsernameAndPasswordAuthenticationFilter jwtUserUsernameAndPasswordAuthenticationFilter =
-                new JwtUserUsernameAndPasswordAuthenticationFilter("/seller/login",
+                new JwtUserUsernameAndPasswordAuthenticationFilter(jwtAuthenticationProperties.getSellerLoginUrl(),
                         jwtAuthenticationProperties, authenticationManager());
         jwtUserUsernameAndPasswordAuthenticationFilter.setAuthenticationSuccessHandler(jwtAuthenticationSuccessHandler);
         jwtUserUsernameAndPasswordAuthenticationFilter.setAuthenticationFailureHandler(jwtAuthenticationFailureHandler);
         return jwtUserUsernameAndPasswordAuthenticationFilter;
-    }
-
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new DefaultPasswordEncoder();
     }
 }
