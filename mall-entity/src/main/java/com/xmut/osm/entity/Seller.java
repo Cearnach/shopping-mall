@@ -114,7 +114,7 @@ public class Seller {
     private String bankUser;
 
     /**
-     * 开户行
+     * 开户银行
      */
     private String bankName;
 
