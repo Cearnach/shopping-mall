@@ -18,8 +18,8 @@ public class JwtAuthenticationProperties {
     /**
      * 默认登录地址
      */
-    private String loginUrl = "/login";
-
+    private String userLoginUrl = "/user/login";
+    private String sellerLoginUrl = "/seller/login";
     private String loginPage = "/login.html";
     /**
      * 头名称

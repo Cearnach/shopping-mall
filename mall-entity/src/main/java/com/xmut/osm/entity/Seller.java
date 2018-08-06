@@ -2,11 +2,9 @@ package com.xmut.osm.entity;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 阮胜
@@ -29,7 +27,18 @@ public class Seller {
      */
     private String storeName;
 
+    /**
+     * 店铺账号
+     */
+    private String account;
+
+    /**
+     * 店铺密码
+     */
     private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Role> roles;;
 
     private String email;
 

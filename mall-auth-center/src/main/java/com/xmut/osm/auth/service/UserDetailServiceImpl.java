@@ -2,6 +2,7 @@ package com.xmut.osm.auth.service;
 
 import com.xmut.osm.entity.User;
 import com.xmut.osm.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,7 +17,8 @@ import java.util.stream.Collectors;
  * @author 阮胜
  * @date 2018/8/4 16:35
  */
-@Component("UserDetailService")
+@Component
+@Qualifier("userDetailService")
 public class UserDetailServiceImpl implements UserDetailsService {
     private static final String USER_NOT_EXIST = "用户不存在";
     private static final String ROLE_PREFIX = "ROLE_";

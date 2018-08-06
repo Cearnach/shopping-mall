@@ -1,11 +1,14 @@
 package com.xmut.osm.auth.filter;
 
 import com.alibaba.fastjson.JSON;
+import com.xmut.osm.auth.token.SellerUsernamePasswordAuthenticationToken;
 import com.xmut.osm.common.bean.ResultVO;
 import com.xmut.osm.security.property.JwtAuthenticationProperties;
 import com.xmut.osm.security.util.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationServiceException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,18 +32,54 @@ import java.util.stream.Collectors;
  * @date 2018/8/4 15:53
  */
 @Slf4j
-public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+public class JwtUserUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private static final String POST = "POST";
     private final JwtAuthenticationProperties jwtAuthenticationProperties;
+    private boolean postOnly = true;
 
-    public JwtUsernameAndPasswordAuthenticationFilter(JwtAuthenticationProperties jwtAuthenticationProperties,
-                                                      AuthenticationManager authenticationManager) {
+    public JwtUserUsernameAndPasswordAuthenticationFilter(String loginUrl, JwtAuthenticationProperties jwtAuthenticationProperties,
+                                                          AuthenticationManager authenticationManager) {
         this.jwtAuthenticationProperties = jwtAuthenticationProperties;
-        this.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher(jwtAuthenticationProperties.getLoginUrl(),
+        this.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher(loginUrl,
                 POST));
         this.setAuthenticationManager(authenticationManager);
     }
+
+    @Override
+    public Authentication attemptAuthentication(HttpServletRequest request,
+                                                HttpServletResponse response) throws AuthenticationException {
+        if (postOnly && !POST.equals(request.getMethod())) {
+            throw new AuthenticationServiceException(
+                    "Authentication method not supported: " + request.getMethod());
+        }
+
+        String username = obtainUsername(request);
+        String password = obtainPassword(request);
+
+        if (username == null) {
+            username = "";
+        }
+
+        if (password == null) {
+            password = "";
+        }
+
+        username = username.trim();
+        UsernamePasswordAuthenticationToken authRequest;
+        if (jwtAuthenticationProperties.getUserLoginUrl().equals(request.getRequestURI())) {
+            authRequest = new UsernamePasswordAuthenticationToken(
+                    username, password);
+        } else {
+            authRequest = new SellerUsernamePasswordAuthenticationToken(username, password);
+        }
+
+        // Allow subclasses to set the "details" property
+        setDetails(request, authRequest);
+
+        return this.getAuthenticationManager().authenticate(authRequest);
+    }
+
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
