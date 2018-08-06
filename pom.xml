@@ -19,6 +19,7 @@
         <module>mall-security</module>
         <module>mall-auth-center</module>
         <module>mall-user</module>
+        <module>mall-seller</module>
     </modules>
     <packaging>pom</packaging>
 
