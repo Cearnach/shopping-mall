@@ -45,19 +45,15 @@ public class Seller {
     /**
      * 公司电话
      */
-    private String mobile;
+    private String companyPhone;
 
-    /**
-     * 公司手机
-     */
-    private String phone;
 
     private String status;
 
     /**
-     * 详细地址
+     * 公司详细地址
      */
-    private String addressDetail;
+    private String companyAddressDetail;
 
     /**
      * 联系人姓名
@@ -72,7 +68,7 @@ public class Seller {
     /**
      * 联系人电话
      */
-    private String linkmanMobile;
+    private String linkmanPhone;
 
     /**
      * 联系人邮箱
@@ -94,10 +90,6 @@ public class Seller {
      */
     private String orgNumber;
 
-    /**
-     * 公司地址
-     */
-    private Long address;
 
     /**
      * 公司LOGO图

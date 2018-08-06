@@ -1,6 +1,6 @@
 spring:
   application:
-    name: manager-service
+    name: seller-manager-service
   cloud:
     config:
       discovery:
@@ -14,7 +14,7 @@ eureka:
   instance:
     hostname: localhost
 server:
-  port: 9801
+  port: 9751
 feign:
   hystrix:
     enabled: true
