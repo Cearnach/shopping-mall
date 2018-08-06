@@ -14,6 +14,8 @@
     <modules>
         <module>seller-manager-web</module>
         <module>seller-manager-service</module>
+        <module>seller-controller</module>
+        <module>seller-feign</module>
     </modules>
 
 
