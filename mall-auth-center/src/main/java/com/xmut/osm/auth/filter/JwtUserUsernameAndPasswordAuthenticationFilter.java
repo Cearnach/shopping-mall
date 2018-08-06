@@ -95,29 +95,27 @@ public class JwtUserUsernameAndPasswordAuthenticationFilter extends UsernamePass
         response.addCookie(cookie);
         try {
             log.info(LOGIN_SUCCESS.concat(" 用户名:{},权限:{}"), auth.getName(), auth.getAuthorities());
-            ResultVO<String> resultVO = new ResultVO<>();
-            resultVO.setSuccess(true);
-            resultVO.setMessage(LOGIN_SUCCESS);
-            response.setContentType("application/json;charset=utf-8");
-            PrintWriter writer = response.getWriter();
-            writer.write(JSON.toJSONString(resultVO));
-            writer.close();
+            sendAuthenticationResult(response, true, LOGIN_SUCCESS);
         } catch (IOException e) {
-            e.printStackTrace();
             log.error(e.getMessage());
+            e.printStackTrace();
         }
+    }
+
+    private void sendAuthenticationResult(HttpServletResponse response, boolean isSuccess, String msg) throws IOException {
+        ResultVO<String> resultVO = new ResultVO<>();
+        resultVO.setSuccess(isSuccess);
+        resultVO.setMessage(msg);
+        response.setContentType(CONTENT_TYPE_JSON);
+        PrintWriter writer = response.getWriter();
+        writer.write(JSON.toJSONString(resultVO));
+        writer.close();
     }
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                               AuthenticationException failed) throws IOException, ServletException {
         SecurityContextHolder.clearContext();
-        ResultVO<String> resultVO = new ResultVO<>();
-        resultVO.setSuccess(false);
-        resultVO.setMessage(ERROR_USERNAME_OR_PASSWORD);
-        response.setContentType(CONTENT_TYPE_JSON);
-        PrintWriter writer = response.getWriter();
-        writer.write(JSON.toJSONString(resultVO));
-        writer.close();
+        sendAuthenticationResult(response, false, ERROR_USERNAME_OR_PASSWORD);
     }
 }
