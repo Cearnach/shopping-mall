@@ -16,10 +16,10 @@ import java.util.stream.Collectors;
  * @author 阮胜
  * @date 2018/8/4 16:35
  */
-@Component
+@Component("UserDetailService")
 public class UserDetailServiceImpl implements UserDetailsService {
     private static final String USER_NOT_EXIST = "用户不存在";
-    public static final String ROLE_PREFIX = "ROLE_";
+    private static final String ROLE_PREFIX = "ROLE_";
     private static final String ROLE_DELIMITED = ",";
     private final UserRepository userRepository;
 
