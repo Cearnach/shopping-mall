@@ -1,9 +1,9 @@
 package com.xmut.osm.goods.feign;
 
 import com.xmut.osm.common.bean.PageInfo;
+import com.xmut.osm.common.constraint.FeignClientConstraints;
 import com.xmut.osm.common.util.BaseServiceClient;
 import com.xmut.osm.entity.TypeTemplate;
-import com.xmut.osm.goods.constraint.FeignClientConstraints;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 

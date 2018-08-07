@@ -80,8 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 (req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED))
                 .and()
                 .authorizeRequests()
-                .antMatchers(jwtAuthenticationProperties.getUserLoginUrl(), jwtAuthenticationProperties.getSellerLoginUrl())
-                .permitAll()
+                .antMatchers(jwtAuthenticationProperties.getUserLoginUrl(), jwtAuthenticationProperties.getSellerLoginUrl()).permitAll()
                 .antMatchers(jwtAuthenticationProperties.getUserLoginUrl()).permitAll()
                 .anyRequest().authenticated();
     }

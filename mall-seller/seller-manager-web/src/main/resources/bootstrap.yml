@@ -1,6 +1,6 @@
 spring:
   application:
-    name: seller-manager-service
+    name: seller-service
   cloud:
     config:
       discovery:

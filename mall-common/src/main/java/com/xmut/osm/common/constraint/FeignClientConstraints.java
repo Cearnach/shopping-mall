@@ -1,4 +1,4 @@
-package com.xmut.osm.goods.constraint;
+package com.xmut.osm.common.constraint;
 
 /**
  * @author 阮胜
@@ -6,4 +6,5 @@ package com.xmut.osm.goods.constraint;
  */
 public final class FeignClientConstraints {
     public static final String GOODS_SERVICE_CLIENT_NAME = "GOODS-SERVICE";
+    public static final String SELELR_SERVICE_CLIENT_NAME = "SELLER-SERVICE";
 }

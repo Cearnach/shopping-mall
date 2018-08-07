@@ -7,11 +7,11 @@ function login() {
     }
     $.ajax({
         type: "POST",
-        url: "/auth/login",
+        url: "/auth/user/login",
         data: "username=" + username + "&password=" + password,
         success: function (result) {
             if (result.success) {
-                // location.href = "index.html";
+                location.href = "admin/index.html";
             } else {
                 alert(result.message);
             }

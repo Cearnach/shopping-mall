@@ -3,14 +3,17 @@ package com.xmut.osm.manager.rest.controller;
 import com.xmut.osm.common.bean.PageBean;
 import com.xmut.osm.common.bean.PageInfo;
 import com.xmut.osm.common.bean.ResultVO;
+import com.xmut.osm.common.util.ControllerTemplate;
 import com.xmut.osm.common.util.ResultVOUtil;
 import com.xmut.osm.entity.Brand;
 import com.xmut.osm.goods.feign.BrandServiceClient;
-import com.xmut.osm.manager.rest.util.ControllerTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 

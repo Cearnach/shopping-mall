@@ -48,7 +48,7 @@ public class SellerController {
         }
         ResultVO<String> resultVO = new ResultVO<>();
         seller.setStatus(SellerStatusEnum.UNCHECKED.getStatusCode());
-//        sellerService.save(seller);
+        sellerService.save(seller);
         resultVO.setSuccess(true);
         return resultVO;
     }

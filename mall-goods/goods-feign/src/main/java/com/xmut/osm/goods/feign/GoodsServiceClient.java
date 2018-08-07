@@ -1,7 +1,7 @@
 package com.xmut.osm.goods.feign;
 
+import com.xmut.osm.common.constraint.FeignClientConstraints;
 import com.xmut.osm.entity.Goods;
-import com.xmut.osm.goods.constraint.FeignClientConstraints;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
