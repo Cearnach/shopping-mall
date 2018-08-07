@@ -12,8 +12,8 @@ public enum RoleEnum {
      * code=编号,name=描述
      */
     ADMIN(100, "超级管理员"),
-    USER(200, "普通用户");
-
+    USER(200, "普通用户"),
+    SELLER(300, "卖家");
     private Integer code;
     private String name;
 

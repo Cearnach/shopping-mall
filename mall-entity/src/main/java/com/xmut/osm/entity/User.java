@@ -19,7 +19,7 @@ import java.util.List;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "tb_user")
+@Table(name = "mall_user")
 public class User implements Serializable {
     @Id
     @GeneratedValue
