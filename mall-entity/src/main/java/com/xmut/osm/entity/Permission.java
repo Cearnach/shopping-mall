@@ -25,16 +25,16 @@ public class Permission {
 
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Role role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Role> roles;
 
     public Permission() {
     }
 
-    public Permission(String url, Integer projectCode, String description, Role role) {
+    public Permission(String url, Integer projectCode, String description, List<Role> roles) {
         this.url = url;
         this.projectCode = projectCode;
         this.description = description;
-        this.role = role;
+        this.roles = roles;
     }
 }

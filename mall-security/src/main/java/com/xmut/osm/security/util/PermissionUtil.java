@@ -1,12 +1,16 @@
 package com.xmut.osm.security.util;
 
 import com.xmut.osm.entity.Permission;
+import com.xmut.osm.entity.Role;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
-import org.springframework.util.StringUtils;
+import org.springframework.util.CollectionUtils;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author 阮胜
@@ -21,14 +25,19 @@ public class PermissionUtil {
     public static void applyPermission(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config, List<Permission> permissionList) {
         permissionList.forEach(permission -> {
             String url = permission.getUrl();
-            if (permission.getRole() == null || StringUtils.isEmpty(permission.getRole().getName())) {
+            List<Role> roles = permission.getRoles();
+            if (CollectionUtils.isEmpty(roles)) {
                 log.info(APPLY_PERMISSION_URL_ROLE, url, ROLE_ANYONE);
                 config.antMatchers(url).permitAll();
             } else {
-                String role = permission.getRole().getName();
-                log.info(APPLY_PERMISSION_URL_ROLE, url, role);
-                config.antMatchers(url, role);
+                String[] roleArr = roles.stream().map(Role::getName).toArray(String[]::new);
+                log.info(APPLY_PERMISSION_URL_ROLE, url, Arrays.toString(roleArr));
+                config.antMatchers(url).hasAnyRole(roleArr);
             }
         });
+    }
+
+    public static void main(String[] args) {
+
     }
 }

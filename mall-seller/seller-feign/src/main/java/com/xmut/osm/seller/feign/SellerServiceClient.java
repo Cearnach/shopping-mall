@@ -13,18 +13,18 @@ import java.util.List;
  * @author 阮胜
  * @date 2018/8/7 16:39
  */
-@FeignClient(name = FeignClientConstraints.SELELR_SERVICE_CLIENT_NAME)
+@FeignClient(name = FeignClientConstraints.SELLER_SERVICE_CLIENT_NAME)
 public interface SellerServiceClient extends BaseServiceClient<Seller> {
-    @GetMapping("/seller/all?page={page}&size={size}")
 
+    @GetMapping("/all?page={page}&size={size}")
     @Override
-    PageInfo<Seller> fetchAll(@PathVariable Integer page, @PathVariable Integer size);
+    PageInfo<Seller> fetchAll(@PathVariable("page") Integer page, @PathVariable("size") Integer size);
 
-    @PostMapping("/seller/save")
+    @PostMapping("/save")
     @Override
     boolean save(@RequestBody Seller seller);
 
-    @DeleteMapping("/seller/deleteAll")
+    @DeleteMapping("/deleteAll")
     @Override
     List<Integer> deleteAll(@RequestParam("ids") Integer[] ids);
 }

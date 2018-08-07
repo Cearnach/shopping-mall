@@ -6,5 +6,5 @@ package com.xmut.osm.common.constraint;
  */
 public final class FeignClientConstraints {
     public static final String GOODS_SERVICE_CLIENT_NAME = "GOODS-SERVICE";
-    public static final String SELELR_SERVICE_CLIENT_NAME = "SELLER-SERVICE";
+    public static final String SELLER_SERVICE_CLIENT_NAME = "SELLER-SERVICE";
 }

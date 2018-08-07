@@ -6,6 +6,7 @@ import com.xmut.osm.common.bean.ResultVO;
 import com.xmut.osm.common.util.ControllerTemplate;
 import com.xmut.osm.entity.Seller;
 import com.xmut.osm.entity.Seller;
+import com.xmut.osm.seller.feign.SellerServiceClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +23,8 @@ import java.util.List;
 public class SellerController {
     private final ControllerTemplate<Seller> controllerTemplate;
 
-    public SellerController(ControllerTemplate<Seller> controllerTemplate) {
-        this.controllerTemplate = controllerTemplate;
+    public SellerController(SellerServiceClient sellerServiceClient) {
+        this.controllerTemplate = ControllerTemplate.getInstance(sellerServiceClient);
     }
 
     @GetMapping("/all")

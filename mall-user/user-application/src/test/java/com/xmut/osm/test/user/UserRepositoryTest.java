@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * @author 阮胜
@@ -62,13 +63,13 @@ public class UserRepositoryTest extends BaseTest {
         permissionRepository.save(new Permission("/login.html", PermissionProjectEnum.MANAGER.getProjectCode(),
                 PermissionProjectEnum.MANAGER.getProject(), null));
         permissionRepository.save(new Permission("/**", PermissionProjectEnum.MANAGER.getProjectCode(),
-                PermissionProjectEnum.MANAGER.getProject(), roleAdmin));
+                PermissionProjectEnum.MANAGER.getProject(), Collections.singletonList(roleAdmin)));
 
         //seller
         permissionRepository.save(new Permission("/login.html", PermissionProjectEnum.SELLER.getProjectCode(),
                 PermissionProjectEnum.SELLER.getProject(), null));
         permissionRepository.save(new Permission("/**", PermissionProjectEnum.SELLER.getProjectCode(),
-                PermissionProjectEnum.SELLER.getProject(), roleSeller));
+                PermissionProjectEnum.SELLER.getProject(), Collections.singletonList(roleSeller)));
 
 
     }

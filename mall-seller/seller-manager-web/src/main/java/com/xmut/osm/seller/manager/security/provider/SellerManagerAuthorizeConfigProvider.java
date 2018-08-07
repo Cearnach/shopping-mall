@@ -1,6 +1,7 @@
 package com.xmut.osm.seller.manager.security.provider;
 
 import com.xmut.osm.common.enumeration.PermissionProjectEnum;
+import com.xmut.osm.common.enumeration.RoleEnum;
 import com.xmut.osm.entity.Permission;
 import com.xmut.osm.repository.PermissionRepository;
 import com.xmut.osm.security.provider.AuthorizeConfigProvider;
@@ -26,6 +27,7 @@ public class SellerManagerAuthorizeConfigProvider implements AuthorizeConfigProv
     @Override
     public void configure(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
         config.antMatchers("/register.html", "/register").permitAll();
+        config.antMatchers(("/all")).hasAnyRole(RoleEnum.ADMIN.getName(), RoleEnum.SELLER.getName());
         List<Permission> permissionList = permissionRepository.findAllByProjectCode(PermissionProjectEnum.MANAGER.getProjectCode());
         PermissionUtil.applyPermission(config, permissionList);
     }
