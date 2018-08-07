@@ -1,4 +1,4 @@
-package com.xmut.osm.goods.feign;
+package com.xmut.osm.common.util;
 
 import com.xmut.osm.common.bean.PageInfo;
 

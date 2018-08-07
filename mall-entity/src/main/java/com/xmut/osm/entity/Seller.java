@@ -3,6 +3,7 @@ package com.xmut.osm.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.List;
 
@@ -20,44 +21,49 @@ public class Seller {
     /**
      * 公司名称
      */
+    @NotBlank
     private String companyName;
 
     /**
      * 店铺名称
      */
+    @NotBlank
     private String storeName;
 
     /**
      * 店铺账号
      */
+    @NotBlank
     private String account;
 
     /**
      * 店铺密码
      */
+    @NotBlank
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Role> roles;;
+    private List<Role> roles;
 
-    private String email;
 
     /**
      * 公司电话
      */
+    @NotBlank
     private String companyPhone;
 
-
-    private String status;
+    private Integer status;
 
     /**
      * 公司详细地址
      */
+    @NotBlank
     private String companyAddressDetail;
 
     /**
      * 联系人姓名
      */
+    @NotBlank
     private String linkmanName;
 
     /**
@@ -68,6 +74,7 @@ public class Seller {
     /**
      * 联系人电话
      */
+    @NotBlank
     private String linkmanPhone;
 
     /**
@@ -78,16 +85,19 @@ public class Seller {
     /**
      * 营业执照号
      */
+    @NotBlank
     private String licenseNumber;
 
     /**
      * 税务登记证号
      */
+    @NotBlank
     private String taxNumber;
 
     /**
      * 组织机构代码
      */
+    @NotBlank
     private String orgNumber;
 
 
@@ -101,11 +111,13 @@ public class Seller {
     /**
      * 法定代表人
      */
+    @NotBlank
     private String legalPerson;
 
     /**
      * 法定代表人身份证
      */
+    @NotBlank
     private String legalPersonCardId;
 
     /**

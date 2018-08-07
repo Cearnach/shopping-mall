@@ -25,6 +25,7 @@ public class SellerManagerAuthorizeConfigProvider implements AuthorizeConfigProv
 
     @Override
     public void configure(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
+        config.antMatchers("/register.html", "/register").permitAll();
         List<Permission> permissionList = permissionRepository.findAllByProjectCode(PermissionProjectEnum.MANAGER.getProjectCode());
         PermissionUtil.applyPermission(config, permissionList);
     }

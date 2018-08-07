@@ -1,10 +1,8 @@
-package com.xmut.osm.manager.rest.util;
+package com.xmut.osm.common.util;
 
 import com.xmut.osm.common.bean.PageBean;
 import com.xmut.osm.common.bean.PageInfo;
 import com.xmut.osm.common.bean.ResultVO;
-import com.xmut.osm.common.util.ResultVOUtil;
-import com.xmut.osm.goods.feign.BaseServiceClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;

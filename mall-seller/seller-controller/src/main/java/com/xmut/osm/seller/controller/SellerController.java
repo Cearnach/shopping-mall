@@ -2,10 +2,14 @@ package com.xmut.osm.seller.controller;
 
 import com.xmut.osm.common.bean.PageBean;
 import com.xmut.osm.common.bean.PageInfo;
+import com.xmut.osm.common.bean.ResultVO;
+import com.xmut.osm.common.enumeration.SellerStatusEnum;
+import com.xmut.osm.common.util.ResultVOUtil;
 import com.xmut.osm.entity.Seller;
 import com.xmut.osm.manager.service.SellerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +20,6 @@ import java.util.List;
  */
 @RestController
 @Slf4j
-@RequestMapping("/seller")
 public class SellerController {
     private final SellerService sellerService;
 
@@ -31,9 +34,23 @@ public class SellerController {
     }
 
     @PostMapping("/save")
-    public boolean save(@RequestBody Seller seller) {
-        sellerService.save(seller);
+    public boolean save(@RequestBody Seller seller,BindingResult bindingResult) {
+
+        System.out.println(seller);
+//        sellerService.save(seller);
         return true;
+    }
+
+    @PostMapping("/register")
+    public ResultVO register(Seller seller, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResultVOUtil.generateResultVO(bindingResult);
+        }
+        ResultVO<String> resultVO = new ResultVO<>();
+        seller.setStatus(SellerStatusEnum.UNCHECKED.getStatusCode());
+//        sellerService.save(seller);
+        resultVO.setSuccess(true);
+        return resultVO;
     }
 
     @DeleteMapping("/deleteAll")

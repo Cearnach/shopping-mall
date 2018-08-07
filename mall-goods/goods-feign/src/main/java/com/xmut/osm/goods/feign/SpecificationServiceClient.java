@@ -1,6 +1,7 @@
 package com.xmut.osm.goods.feign;
 
 import com.xmut.osm.common.bean.PageInfo;
+import com.xmut.osm.common.util.BaseServiceClient;
 import com.xmut.osm.dto.SpecificationDTO;
 import com.xmut.osm.entity.Specification;
 import com.xmut.osm.entity.SpecificationOption;
