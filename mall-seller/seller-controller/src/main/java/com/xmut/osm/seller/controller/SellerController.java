@@ -36,12 +36,13 @@ public class SellerController {
     }
 
     @GetMapping("/all/status")
-    public PageInfo fetchUncheckedSellers(@Min(0) Integer status, PageBean pageBean, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
+    public PageInfo fetchUncheckedSellers(@Min(0) Integer statusCode, PageBean pageBean, BindingResult bindingResult) {
+        SellerStatusEnum statusEnum = SellerStatusEnum.findByStatusCode(statusCode);
+        assert statusEnum != null;
+        if (bindingResult.hasErrors() || statusEnum.getStatusCode() == -1) {
             return null;
         }
-
-        Page<Seller> sellerPage = sellerService.findByStatus(SellerStatusEnum.UNCHECKED);
+        Page<Seller> sellerPage = sellerService.findByStatus(statusEnum, pageBean);
         return PageInfoUtil.generate(pageBean, sellerPage);
     }
 
@@ -49,9 +50,10 @@ public class SellerController {
 
     @PostMapping("/save")
     public boolean save(@RequestBody Seller seller, BindingResult bindingResult) {
-
-        System.out.println(seller);
-//        sellerService.save(seller);
+        if (bindingResult.hasErrors()) {
+            return false;
+        }
+        sellerService.save(seller);
         return true;
     }
 

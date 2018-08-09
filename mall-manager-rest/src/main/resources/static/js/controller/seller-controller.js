@@ -15,9 +15,23 @@ app.controller("sellerController", function ($scope, $http, $controller, sellerS
             alert("获取列表失败");
         });
     };
-
+    $scope.findByStatusCode = function (statusCode, page, size) {
+        if (page === undefined || page < 1) {
+            page = 1;
+        }
+        if (size === undefined || size < 0) {
+            size = 10;
+        }
+        sellerService.findByStatusCode(statusCode, page, size)
+            .then(function (resp) {
+                $scope.pageInfo = resp.data;
+                $scope.paginationConf.totalItems = $scope.pageInfo.totalElements;
+            })
+            .catch(function (reason) {
+                alert("获取列表失败");
+            });
+    };
     $scope.refreshList = function () {
-
         var currentPage = $scope.paginationConf.currentPage;
         if (currentPage === 1) {
             $scope.paginationConf.currentPage = 0;
@@ -77,6 +91,24 @@ app.controller("sellerController", function ($scope, $http, $controller, sellerS
                 alert("删除失败");
                 console.log('error');
             })
+        }
+    };
+    $scope.reload = true;
+    //分页控件配置currentPage:当前页   totalItems :总记录数  itemsPerPage:每页记录数  perPageOptions :分页选项  onChange:当页码变更后自动触发的方法
+    $scope.paginationConf = {
+        currentPage: 1,
+        totalItems: 10,
+        itemsPerPage: 10,
+        perPageOptions: [10, 20, 30, 40, 50],
+        onChange: function () {
+            if (!$scope.reload) {
+                return;
+            }
+            $scope.findByStatusCode(11, $scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);
+            $scope.reload = false;
+            setTimeout(function () {
+                $scope.reload = true;
+            }, 200);
         }
     };
 });

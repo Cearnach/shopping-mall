@@ -3,6 +3,7 @@ package com.xmut.osm.repository;
 import com.xmut.osm.entity.Seller;
 import com.xmut.osm.repository.base.BaseRepository;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
@@ -13,5 +14,5 @@ import java.util.Optional;
 public interface SellerRepository extends BaseRepository<Seller, Integer> {
     Optional<Seller> findByAccount(String account);
 
-    Page<Seller> findAllByStatus(Integer status);
+    Page<Seller> findAllByStatus(Integer status, Pageable pageable);
 }
