@@ -12,4 +12,12 @@ import org.springframework.data.domain.Page;
  */
 public interface SellerService extends BaseService<Seller, Integer> {
     Page<Seller> findByStatus(SellerStatusEnum sellerStatusEnum, PageBean pageBean);
+
+    void updateStatusCode(Integer sellerId, Integer statusCode);
+
+    Page<Seller> findByCompanyName(String companyName, PageBean pageBean);
+
+    Page<Seller> findByStoreName(String storeName, PageBean pageBean);
+
+    Page<Seller> findByCompanyNameOrStoreName(String companyName, String storeName, PageBean pageBean);
 }

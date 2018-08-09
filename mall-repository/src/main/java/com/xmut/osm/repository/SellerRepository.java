@@ -12,7 +12,18 @@ import java.util.Optional;
  * @date 2018/8/6 14:41
  */
 public interface SellerRepository extends BaseRepository<Seller, Integer> {
+
     Optional<Seller> findByAccount(String account);
 
+    Page<Seller> findByCompanyName(String companyName, Pageable pageBean);
+
+    Page<Seller> findByStoreName(String storeName , Pageable pageBean);
+
+    Page<Seller> findByCompanyNameOrStoreName(String companyName, String storeName , Pageable pageBean);
+
     Page<Seller> findAllByStatus(Integer status, Pageable pageable);
+/*
+    @Modifying
+    @Query("update Seller set Seller.status = :statusCode where Seller.id = :sellerId")
+    void updateStatusCode(@Param("sellerId") Integer sellerId, @Param("statusCode") Integer statusCode);*/
 }

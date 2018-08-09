@@ -69,6 +69,12 @@ public class SellerController {
         return resultVO;
     }
 
+    @PutMapping("/update/status")
+    public boolean updateStatus(@Min(0) Integer sellerId, @Min(0) Integer statusCode) {
+        sellerService.updateStatusCode(sellerId, statusCode);
+        return true;
+    }
+
     @DeleteMapping("/deleteAll")
     public List<Integer> deleteAll(Integer[] ids) {
         return sellerService.deleteIn(ids);

@@ -11,6 +11,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
+
 /**
  * @author 阮胜
  * @date 2018/8/6 20:48
@@ -21,5 +23,25 @@ public class SellerServiceImpl extends BaseServiceImpl<Seller, Integer, SellerRe
     @Override
     public Page<Seller> findByStatus(SellerStatusEnum sellerStatusEnum, PageBean pageBean) {
         return repository.findAllByStatus(sellerStatusEnum.getStatusCode(), PageRequest.of(pageBean.getPage(), pageBean.getSize()));
+    }
+
+    @Override
+    public void updateStatusCode(Integer sellerId, Integer statusCode) {
+        repository.findById(sellerId).orElseThrow(EntityNotFoundException::new).setStatus(statusCode);
+    }
+
+    @Override
+    public Page<Seller> findByCompanyName(String companyName, PageBean pageBean) {
+        return repository.findByCompanyName(companyName, PageRequest.of(pageBean.getPage(), pageBean.getSize()));
+    }
+
+    @Override
+    public Page<Seller> findByStoreName(String storeName, PageBean pageBean) {
+        return repository.findByStoreName(storeName, PageRequest.of(pageBean.getPage(), pageBean.getSize()));
+    }
+
+    @Override
+    public Page<Seller> findByCompanyNameOrStoreName(String companyName, String storeName, PageBean pageBean) {
+        return repository.findByCompanyNameOrStoreName(companyName, storeName, PageRequest.of(pageBean.getPage(), pageBean.getSize()));
     }
 }

@@ -93,6 +93,25 @@ app.controller("sellerController", function ($scope, $http, $controller, sellerS
             })
         }
     };
+    $scope.updateStatusCode = function (sellerId, statusCode) {
+        if (sellerId === undefined || sellerId === 0 || statusCode === undefined || statusCode === 0) {
+            alert("卖家ID或状态码不能为空");
+            return;
+        }
+        sellerService.updateStatusCode(sellerId, statusCode)
+            .then(function (resp) {
+                if (resp.data) {
+                    $scope.refreshList();
+                    alert("操作成功");
+                } else {
+                    alert("操作失败");
+                }
+            })
+            .catch(function (reason) {
+                alert("操作异常");
+            });
+    };
+    $scope.defaultStatusCode = -1;
     $scope.reload = true;
     //分页控件配置currentPage:当前页   totalItems :总记录数  itemsPerPage:每页记录数  perPageOptions :分页选项  onChange:当页码变更后自动触发的方法
     $scope.paginationConf = {
@@ -104,12 +123,13 @@ app.controller("sellerController", function ($scope, $http, $controller, sellerS
             if (!$scope.reload) {
                 return;
             }
-            $scope.findByStatusCode(11, $scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);
+            $scope.findByStatusCode($scope.defaultStatusCode, $scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);
             $scope.reload = false;
             setTimeout(function () {
                 $scope.reload = true;
             }, 200);
         }
     };
+    $scope.statusJson = {10: "审核通过", 11: "未审核", 12: "审核未通过", 13: "已关闭"};
 });
 
