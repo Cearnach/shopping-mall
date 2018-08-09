@@ -102,7 +102,7 @@ app.controller("sellerController", function ($scope, $http, $controller, sellerS
             .then(function (resp) {
                 if (resp.data) {
                     $scope.refreshList();
-                    alert("操作成功");
+                    // alert("操作成功");
                 } else {
                     alert("操作失败");
                 }
