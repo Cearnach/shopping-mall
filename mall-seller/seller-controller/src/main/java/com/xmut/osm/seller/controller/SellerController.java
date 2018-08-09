@@ -4,6 +4,7 @@ import com.xmut.osm.common.bean.PageBean;
 import com.xmut.osm.common.bean.PageInfo;
 import com.xmut.osm.common.bean.ResultVO;
 import com.xmut.osm.common.enumeration.SellerStatusEnum;
+import com.xmut.osm.common.util.PageInfoUtil;
 import com.xmut.osm.common.util.ResultVOUtil;
 import com.xmut.osm.entity.Seller;
 import com.xmut.osm.manager.service.SellerService;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Min;
 import java.util.List;
 
 /**
@@ -28,13 +30,25 @@ public class SellerController {
     }
 
     @GetMapping("/all")
-    public PageInfo<Seller> fetchSellerAll(PageBean pageBean) {
+    public PageInfo fetchSellerAll(PageBean pageBean) {
         Page<Seller> sellerPage = sellerService.findAll(pageBean);
-        return new PageInfo<>(pageBean.getPage(), sellerPage.getTotalElements(), sellerPage.getContent());
+        return PageInfoUtil.generate(pageBean, sellerPage);
     }
 
+    @GetMapping("/all/status")
+    public PageInfo fetchUncheckedSellers(@Min(0) Integer status, PageBean pageBean, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return null;
+        }
+
+        Page<Seller> sellerPage = sellerService.findByStatus(SellerStatusEnum.UNCHECKED);
+        return PageInfoUtil.generate(pageBean, sellerPage);
+    }
+
+    @GetMapping("/")
+
     @PostMapping("/save")
-    public boolean save(@RequestBody Seller seller,BindingResult bindingResult) {
+    public boolean save(@RequestBody Seller seller, BindingResult bindingResult) {
 
         System.out.println(seller);
 //        sellerService.save(seller);

@@ -22,4 +22,13 @@ public enum SellerStatusEnum {
         this.statusCode = statusCode;
         this.statusName = statusName;
     }
+
+    public static SellerStatusEnum findByStatusCode(Integer statusCode) {
+        for (SellerStatusEnum sellerStatusEnum : SellerStatusEnum.values()) {
+            if (sellerStatusEnum.getStatusCode().equals(statusCode)) {
+                return sellerStatusEnum;
+            }
+        }
+        return null;
+    }
 }
