@@ -12,8 +12,8 @@
     <artifactId>mall-seller</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>seller-manager-web</module>
         <module>seller-service</module>
+        <module>seller-manager-web</module>
         <module>seller-controller</module>
         <module>seller-feign</module>
     </modules>

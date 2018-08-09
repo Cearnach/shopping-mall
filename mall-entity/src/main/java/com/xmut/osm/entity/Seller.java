@@ -130,6 +130,10 @@ public class Seller {
      */
     private String bankName;
 
+    /**
+     * 银行账户
+     */
+    private String bankNumber;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false)
     private Date createDate;
 

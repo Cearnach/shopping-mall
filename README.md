@@ -8,4 +8,4 @@ USER-SERVICE            :9301  ----用户服务
 GOODS-SERVICE           :9501  ----商品服务  
 ORDER-SERVICE           :9601  ----订单服务  
 MANAGER-SERVICE         :9701  ----后台管理服务  
-SELLER-SERVICE          :9751  ----商家后台管理服务  
+SELLER-SERVICE          :9801  ----商家后台管理服务  

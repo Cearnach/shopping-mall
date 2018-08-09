@@ -14,8 +14,12 @@ eureka:
   instance:
     hostname: localhost
 server:
-  port: 9701
+  port: 9702
 feign:
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
   hystrix:
     enabled: true
 hystrix:
