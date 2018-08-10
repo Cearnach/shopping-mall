@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 该过滤器用于验证用户权限
+ * 验证用户权限过滤器
  *
  * @author 阮胜
  * @date 2018/8/4 14:28
@@ -42,8 +42,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        Cookie[] cookies = request.getCookies();
-        String token = fetchCookie(cookies);
+        String token = fetchCookie(request.getCookies());
         if (StringUtils.isEmpty(token)) {
             token = request.getHeader(jwtAuthenticationProperties.getHeader());
         }

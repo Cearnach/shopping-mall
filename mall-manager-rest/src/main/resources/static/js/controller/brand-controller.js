@@ -79,5 +79,6 @@ app.controller("brandController", function ($scope, $http, $controller, brandSer
             })
         }
     };
+
 });
 

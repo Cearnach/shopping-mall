@@ -1,4 +1,4 @@
-app.controller("typeTemplateController", function ($scope, $http, $controller, typeTemplateService) {
+app.controller("typeTemplateController", function ($scope, $http, $controller, typeTemplateService, brandService, specificationService) {
     $controller('baseController', {$scope: $scope});
     $scope.findAll = function (page, size) {
         if (page === undefined || page < 1) {
@@ -72,6 +72,40 @@ app.controller("typeTemplateController", function ($scope, $http, $controller, t
                 console.log('error');
             })
         }
+    };
+    $scope.brandList = {data: [{id: 1, text: "联想"}, {id: 2, text: "华为"}]};
+
+    $scope.findBrandList = function () {
+        brandService.findAll(1, 10).then(function (resp) {
+            $scope.brandList = {data: []};
+            resp.data.data.forEach(function (brand) {
+                $scope.brandList.data.push({id: brand.id, text: brand.name});
+            });
+        });
+    };
+    $scope.findSpecificationList = function () {
+        specificationService.findAll(1, 10).then(function (resp) {
+            $scope.specificationList = {data: []};
+            resp.data.data.forEach(function (spec) {
+                $scope.specificationList.data.push({id: spec.id, text: spec.name});
+            });
+        });
+    };
+    $scope.t = function (entity) {
+        $scope.brandIds = [];
+        $scope.specIds = [];
+        if (entity.selectedBrands !== undefined) {
+            entity.selectedBrands.forEach(function (brand) {
+                $scope.brandIds.push(brand.id);
+            });
+        }
+        if (entity.selectedSpecs !== undefined) {
+            entity.selectedSpecs.forEach(function (spec) {
+                $scope.specIds.push(spec.id);
+            });
+        }
+        console.log($scope.brandIds);
+        console.log($scope.specIds);
     };
 });
 
