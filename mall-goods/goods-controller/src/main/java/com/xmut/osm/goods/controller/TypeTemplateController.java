@@ -2,14 +2,12 @@ package com.xmut.osm.goods.controller;
 
 import com.xmut.osm.common.bean.PageBean;
 import com.xmut.osm.common.bean.PageInfo;
-import com.xmut.osm.common.util.ResultVOUtil;
 import com.xmut.osm.dto.TypeTemplateDTO;
 import com.xmut.osm.entity.TypeTemplate;
 import com.xmut.osm.goods.service.TypeTemplateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.BindingResultUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,13 +32,12 @@ public class TypeTemplateController {
         return new PageInfo<>(pageBean.getPage(), typeTemplatePage.getTotalElements(), typeTemplatePage.getContent());
     }
 
-    @PostMapping("/save")
+    @PostMapping("/saveDTO")
     public boolean save(@RequestBody TypeTemplateDTO typeTemplateDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return false;
         }
-        System.out.println(typeTemplateDTO);
-        //typeTemplateService.save(typeTemplate);
+        typeTemplateService.save(typeTemplateDTO);
         return true;
     }
 

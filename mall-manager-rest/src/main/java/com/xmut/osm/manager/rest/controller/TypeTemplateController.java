@@ -24,8 +24,10 @@ import java.util.List;
 @RequestMapping("/typeTemplate")
 public class TypeTemplateController {
     private final ControllerTemplate<TypeTemplate> controllerTemplate;
+    private final TypeTemplateClient typeTemplateClient;
 
     public TypeTemplateController(TypeTemplateClient typeTemplateClient) {
+        this.typeTemplateClient = typeTemplateClient;
         controllerTemplate = ControllerTemplate.getInstance(typeTemplateClient);
     }
 
@@ -42,9 +44,10 @@ public class TypeTemplateController {
         if (typeTemplateDTO.getId() == null) {
             typeTemplateDTO.setId(0);
         }
+        ResultVO<String> resultVO = new ResultVO<>();
         System.out.println(typeTemplateDTO);
-        return null;
-//        return controllerTemplate.save(typeTemplate, bindingResult);
+        resultVO.setSuccess(typeTemplateClient.save(typeTemplateDTO));
+        return resultVO;
     }
 
     @DeleteMapping("/deleteAll")

@@ -55,6 +55,7 @@ app.controller("typeTemplateController", function ($scope, $http, $controller, t
             });
         }
         saveEntity.customAttribute = customAttributeText;
+        saveEntity.name = $scope.entity.name;
         typeTemplateService.save(saveEntity).then(function (resp) {
             if (resp.data.success) {
                 // alert("保存成功");
