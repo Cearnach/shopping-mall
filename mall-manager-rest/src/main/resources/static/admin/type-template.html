@@ -91,7 +91,7 @@ ng-init="findBrandList();findSpecificationList();">
                 <td>{{entity.name}}</td>
                 <td>{{jsonToString(entity.brandIds,'text')}}</td>
                 <td>{{jsonToString(entity.specIds,'text')}}</td>
-                <td>{{jsonToString(entity.customAttributeItems,'text')}}</td>
+                <td>{{jsonToString(entity.customAttribute,'text')}}</td>
                 <td class="text-center">
                     <button type="button" class="btn bg-olive btn-xs" ng-click="findOne(entity.id)" data-toggle="modal" data-target="#editModal" >修改</button>
                 </td>
@@ -163,7 +163,7 @@ ng-init="findBrandList();findSpecificationList();">
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="pojo in entity.customAttributeItems">
+                                <tr ng-repeat="pojo in entity.customAttribute">
                                     <td><input type="checkbox" class="icheckbox_square-blue" ></td>
                                     <td><input class="form-control" ng-model="pojo.text" placeholder="属性名称" ></td>
                                     <td><button type="button" ng-click="deleteTableRow($index)" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除</button></td>
@@ -178,7 +178,7 @@ ng-init="findBrandList();findSpecificationList();">
 
             </div>
             <div class="modal-footer">
-                <button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="t(entity)">保存</button>
+                <button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="save()">保存</button>
                 <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
             </div>
         </div>

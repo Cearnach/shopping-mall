@@ -4,6 +4,8 @@ import com.xmut.osm.common.bean.PageBean;
 import com.xmut.osm.common.bean.PageInfo;
 import com.xmut.osm.common.bean.ResultVO;
 import com.xmut.osm.common.util.ControllerTemplate;
+import com.xmut.osm.common.util.ResultVOUtil;
+import com.xmut.osm.dto.TypeTemplateDTO;
 import com.xmut.osm.entity.TypeTemplate;
 import com.xmut.osm.goods.feign.TypeTemplateClient;
 import lombok.extern.slf4j.Slf4j;
@@ -33,11 +35,16 @@ public class TypeTemplateController {
     }
 
     @PostMapping("/save")
-    public ResultVO save(@RequestBody TypeTemplate typeTemplate, BindingResult bindingResult) {
-        if (typeTemplate.getId() == null) {
-            typeTemplate.setId(0);
+    public ResultVO save(@RequestBody TypeTemplateDTO typeTemplateDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResultVOUtil.generateResultVO(bindingResult);
         }
-        return controllerTemplate.save(typeTemplate, bindingResult);
+        if (typeTemplateDTO.getId() == null) {
+            typeTemplateDTO.setId(0);
+        }
+        System.out.println(typeTemplateDTO);
+        return null;
+//        return controllerTemplate.save(typeTemplate, bindingResult);
     }
 
     @DeleteMapping("/deleteAll")

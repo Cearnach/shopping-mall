@@ -27,7 +27,35 @@ app.controller("typeTemplateController", function ($scope, $http, $controller, t
             alert("数据不完整");
             return;
         }
-        typeTemplateService.save($scope.entity).then(function (resp) {
+        var saveEntity = {};
+        $scope.brandIds = [];
+        $scope.specIds = [];
+        if ($scope.entity.selectedBrands !== undefined) {
+            $scope.entity.selectedBrands.forEach(function (brand) {
+                $scope.brandIds.push(brand.id);
+            });
+        }
+        if ($scope.entity.selectedSpecs !== undefined) {
+            $scope.entity.selectedSpecs.forEach(function (spec) {
+                $scope.specIds.push(spec.id);
+            });
+        }
+        saveEntity.brandIdList = $scope.brandIds;
+        saveEntity.specificationIdList = $scope.specIds;
+
+
+        var customAttributeText = "";
+        if ($scope.entity.customAttribute !== undefined) {
+            $scope.entity.customAttribute.forEach(function (attr, index) {
+                if (index === $scope.entity.customAttribute.length - 1) {
+                    customAttributeText += attr.text;
+                } else {
+                    customAttributeText += attr.text + ",";
+                }
+            });
+        }
+        saveEntity.customAttribute = customAttributeText;
+        typeTemplateService.save(saveEntity).then(function (resp) {
             if (resp.data.success) {
                 // alert("保存成功");
                 $scope.refreshList();
@@ -40,15 +68,7 @@ app.controller("typeTemplateController", function ($scope, $http, $controller, t
             alert("保存失败");
         });
     };
-    /* $scope.updateSelected = function (event, id) {
-         if (event.target.checked) {
-             $scope.selectedIds.push(id);
-         } else {
-             var index = $scope.selectedIds.indexOf(id);
-             $scope.selectedIds.splice(index, 1);
-         }
-         console.log($scope.selectedIds);
-     };*/
+
     $scope.delete = function () {
         $scope.selectedIds = [];
         $(".chkItem").each(function () {
@@ -91,21 +111,18 @@ app.controller("typeTemplateController", function ($scope, $http, $controller, t
             });
         });
     };
-    $scope.t = function (entity) {
-        $scope.brandIds = [];
-        $scope.specIds = [];
-        if (entity.selectedBrands !== undefined) {
-            entity.selectedBrands.forEach(function (brand) {
-                $scope.brandIds.push(brand.id);
-            });
+    $scope.addTableRow = function () {
+        if ($scope.entity === undefined) {
+            $scope.entity = {customAttribute: []};
         }
-        if (entity.selectedSpecs !== undefined) {
-            entity.selectedSpecs.forEach(function (spec) {
-                $scope.specIds.push(spec.id);
-            });
+        if ($scope.entity.customAttribute === undefined) {
+            $scope.entity.customAttribute = [];
         }
-        console.log($scope.brandIds);
-        console.log($scope.specIds);
+        $scope.entity.customAttribute.push({});
+    };
+
+    $scope.deleteTableRow = function (index) {
+        $scope.entity.customAttribute.splice(index, 1);
     };
 });
 

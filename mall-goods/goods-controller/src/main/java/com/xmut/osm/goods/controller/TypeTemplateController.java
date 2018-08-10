@@ -3,6 +3,7 @@ package com.xmut.osm.goods.controller;
 import com.xmut.osm.common.bean.PageBean;
 import com.xmut.osm.common.bean.PageInfo;
 import com.xmut.osm.common.util.ResultVOUtil;
+import com.xmut.osm.dto.TypeTemplateDTO;
 import com.xmut.osm.entity.TypeTemplate;
 import com.xmut.osm.goods.service.TypeTemplateService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,11 +35,11 @@ public class TypeTemplateController {
     }
 
     @PostMapping("/save")
-    public boolean save(@RequestBody TypeTemplate typeTemplate, BindingResult bindingResult) {
+    public boolean save(@RequestBody TypeTemplateDTO typeTemplateDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return false;
         }
-        System.out.println(typeTemplate);
+        System.out.println(typeTemplateDTO);
         //typeTemplateService.save(typeTemplate);
         return true;
     }
