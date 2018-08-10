@@ -17,7 +17,40 @@ app.controller("baseController", function ($scope) {
             }, 200);
         }
     };
+    $scope.refreshList = function () {
+        var currentPage = $scope.paginationConf.currentPage;
+        if (currentPage === 1) {
+            $scope.paginationConf.currentPage = 0;
+        } else {
+            $scope.paginationConf.currentPage = 1;
+        }
+    };
+
+    // 定义方法：获取JSON字符串中的某个key对应值的集合
+    $scope.jsonToString = function (jsonObj, key) {
+        var value = "";
+        if (jsonObj === undefined || jsonObj === null) {
+            return value;
+        }
+        for (var i = 0; i < jsonObj.length; i++) {
+            value += jsonObj[i].name;
+            if (i < jsonObj.length - 1) {
+                value += " , ";
+            }
+        }
+        return value;
+    };
+// 从集合中查询某个名称的值是否存在
+    $scope.searchObjectByKey = function (list, keyName, keyValue) {
+        for (var i = 0; i < list.length; i++) {
+            if (list[i][keyName] === keyValue) {
+                return list[i];
+            }
+        }
+        return null;
+    };
 });
+
 
 function setChkCheckedAll(parentId, childClazz) {
     var isChecked = $("#" + parentId).prop("checked");

@@ -4,6 +4,7 @@ import com.xmut.osm.dto.TypeTemplateDTO;
 import com.xmut.osm.entity.Brand;
 import com.xmut.osm.entity.Specification;
 import com.xmut.osm.entity.TypeTemplate;
+import com.xmut.osm.exception.TargetEntityNotFound;
 import com.xmut.osm.goods.service.TypeTemplateService;
 import com.xmut.osm.repository.BrandRepository;
 import com.xmut.osm.repository.SpecificationRepository;
@@ -15,7 +16,6 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -36,7 +36,14 @@ public class TypeTemplateServiceImpl extends BaseServiceImpl<TypeTemplate, Integ
 
 
     @Override
-    public TypeTemplate save(TypeTemplateDTO typeTemplateDTO) {
+    public TypeTemplate save(TypeTemplateDTO typeTemplateDTO) throws TargetEntityNotFound {
+        Integer tid = typeTemplateDTO.getId();
+        TypeTemplate typeTemplate;
+        if (tid != null && tid > 0) {
+            typeTemplate = repository.findById(tid).orElseThrow(TargetEntityNotFound::new);
+        } else {
+            typeTemplate = new TypeTemplate();
+        }
         List<Integer> brandIdList = typeTemplateDTO.getBrandIdList();
         List<Brand> brandList = null;
         if (!CollectionUtils.isEmpty(brandIdList)) {
@@ -55,7 +62,6 @@ public class TypeTemplateServiceImpl extends BaseServiceImpl<TypeTemplate, Integ
                     .filter(Objects::nonNull)
                     .collect(Collectors.toList());
         }
-        TypeTemplate typeTemplate = new TypeTemplate();
         typeTemplate.setBrandList(brandList);
         typeTemplate.setSpecificationList(specificationList);
         typeTemplate.setCustomAttribute(typeTemplateDTO.getCustomAttribute());

@@ -16,11 +16,33 @@ app.controller("typeTemplateController", function ($scope, $http, $controller, t
         });
     };
 
-    $scope.refreshList = function () {
-        $scope.paginationConf.currentPage = 1;
-    };
+
     $scope.bindSaveData = function (entity) {
         $scope.entity = entity;
+        $scope.form = [];
+        if (entity === undefined) {
+            return;
+        }
+        $scope.entity.selectedBrands = [];
+        if (entity.brandList !== undefined) {
+            entity.brandList.forEach(function (brand) {
+                $scope.entity.selectedBrands.push({id: brand.id, text: brand.name});
+            });
+        }
+        $scope.entity.selectedSpecs = [];
+        if (entity.specificationList !== undefined) {
+            entity.specificationList.forEach(function (spec) {
+                $scope.entity.selectedSpecs.push({id: spec.id, text: spec.name});
+            });
+        }
+        var attr = entity.customAttribute;
+        if (attr !== undefined && attr !== null && attr.trim().length !== null) {
+            $scope.form.customAttribute = [];
+            var attrArr = attr.split(",");
+            attrArr.forEach(function (value) {
+                $scope.form.customAttribute.push({text: value});
+            })
+        }
     };
     $scope.save = function () {
         if ($scope.entity === undefined) {
@@ -42,12 +64,16 @@ app.controller("typeTemplateController", function ($scope, $http, $controller, t
         }
         saveEntity.brandIdList = $scope.brandIds;
         saveEntity.specificationIdList = $scope.specIds;
-
-
+        var id = $scope.entity.id;
+        if (id !== undefined && id > 0) {
+            saveEntity.id = id;
+        } else {
+            saveEntity.id = 0;
+        }
         var customAttributeText = "";
-        if ($scope.entity.customAttribute !== undefined) {
-            $scope.entity.customAttribute.forEach(function (attr, index) {
-                if (index === $scope.entity.customAttribute.length - 1) {
+        if ($scope.form.customAttribute !== undefined) {
+            $scope.form.customAttribute.forEach(function (attr, index) {
+                if (index === $scope.form.customAttribute.length - 1) {
                     customAttributeText += attr.text;
                 } else {
                     customAttributeText += attr.text + ",";
@@ -113,17 +139,17 @@ app.controller("typeTemplateController", function ($scope, $http, $controller, t
         });
     };
     $scope.addTableRow = function () {
-        if ($scope.entity === undefined) {
-            $scope.entity = {customAttribute: []};
+        if ($scope.form === undefined) {
+            $scope.form = {customAttribute: []};
         }
-        if ($scope.entity.customAttribute === undefined) {
-            $scope.entity.customAttribute = [];
+        if ($scope.form.customAttribute === undefined) {
+            $scope.form.customAttribute = [];
         }
-        $scope.entity.customAttribute.push({});
+        $scope.form.customAttribute.push({});
     };
 
     $scope.deleteTableRow = function (index) {
-        $scope.entity.customAttribute.splice(index, 1);
+        $scope.form.customAttribute.splice(index, 1);
     };
 });
 
