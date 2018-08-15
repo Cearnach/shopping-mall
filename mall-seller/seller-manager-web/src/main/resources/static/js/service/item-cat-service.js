@@ -1,5 +1,5 @@
 app.service("itemCatService", function ($http) {
-    this.findAll = function (page, size) {
+    this.findAll = function () {
         return $http.get("/manager/itemCat/all");
     };
     this.save = function (entity) {
