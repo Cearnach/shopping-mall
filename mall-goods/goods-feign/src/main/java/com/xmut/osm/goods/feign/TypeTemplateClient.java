@@ -30,7 +30,7 @@ public interface TypeTemplateClient extends BaseServiceClient<TypeTemplate> {
 
     @DeleteMapping("/typeTemplate/deleteAll")
     @Override
-    List<Integer> deleteAll(Integer[] ids);
+    List<Integer> deleteAll(@RequestParam("ids") Integer[] ids);
 
 
 }

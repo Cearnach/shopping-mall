@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+
     <script src="../plugins/angularjs/angular.min.js"></script>
     <!-- 分页组件开始 -->
     <script src="../plugins/angularjs/pagination.js"></script>
@@ -73,8 +74,7 @@
             <tbody>
             <tr ng-repeat="entity in pageInfo.data">
                 <td>
-                    <input type="checkbox" id="selectAll" class="chkItem" ng-click="updateSelected($event,entity.id)"
-                           objId={{entity.id}}>
+                    <input type="checkbox" id="selectAll" class="chkItem"  objId={{entity.id}}>
                 </td>
                 <td>{{$index+1}}</td>
                 <td>{{entity.name}}</td>

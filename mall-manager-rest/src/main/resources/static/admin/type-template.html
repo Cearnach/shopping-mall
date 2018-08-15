@@ -57,8 +57,8 @@
                             data-target="#editModal"
                             ng-click="bindSaveData()"><i class="fa fa-file-o"></i> 新建
                     </button>
-                    <button type="button" class="btn btn-default" ng-click="dele()" title="删除"><i
-                            class="fa fa-trash-o"></i> 删除
+                    <button type="button" class="btn btn-default" ng-click="delete()" title="删除"><i
+                            class="fa fa-trash-o" ></i> 删除
                     </button>
 
                     <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i
@@ -92,7 +92,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="entity in pageInfo.data">
-                <td><input type="checkbox" ng-click="updateSelection($event,entity.id)"></td>
+                <td><input type="checkbox" class="chkItem" objId="{{entity.id}}"  ng-click="updateSelection($event,entity.id)"></td>
                 <td>{{entity.id}}</td>
                 <td>{{entity.name}}</td>
                 <td>{{jsonToString(entity.brandList,'name')}}</td>

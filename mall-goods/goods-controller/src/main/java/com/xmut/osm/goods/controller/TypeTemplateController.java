@@ -4,6 +4,7 @@ import com.xmut.osm.common.bean.PageBean;
 import com.xmut.osm.common.bean.PageInfo;
 import com.xmut.osm.dto.TypeTemplateDTO;
 import com.xmut.osm.entity.TypeTemplate;
+import com.xmut.osm.exception.TargetEntityNotFound;
 import com.xmut.osm.goods.service.TypeTemplateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -33,7 +34,7 @@ public class TypeTemplateController {
     }
 
     @PostMapping("/saveDTO")
-    public boolean save(@RequestBody TypeTemplateDTO typeTemplateDTO, BindingResult bindingResult) {
+    public boolean save(@RequestBody TypeTemplateDTO typeTemplateDTO, BindingResult bindingResult) throws TargetEntityNotFound {
         if (bindingResult.hasErrors()) {
             return false;
         }

@@ -46,6 +46,9 @@ public class Goods implements Serializable {
 
     private Boolean deleted;
 
+    @ManyToOne
+    private ItemCategory itemCategory;
+
     /**
      * 商品状态
      */
