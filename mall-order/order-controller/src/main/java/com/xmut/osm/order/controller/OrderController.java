@@ -24,7 +24,7 @@ public class OrderController {
     @GetMapping("/test")
     @HystrixCommand(fallbackMethod = "fallback")
     public ResultVO<Goods> t() {
-        Goods goods = goodsServiceClient.fetchgoods("gid");
+        Goods goods = null;
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {

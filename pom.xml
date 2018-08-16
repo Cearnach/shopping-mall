@@ -20,6 +20,8 @@
         <module>mall-auth-center</module>
         <module>mall-user</module>
         <module>mall-seller</module>
+        <module>mall-fast-dfs</module>
+        <module>mall-file-storage</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -4,11 +4,13 @@ import com.xmut.osm.dto.GoodsDTO;
 import com.xmut.osm.entity.Brand;
 import com.xmut.osm.entity.Goods;
 import com.xmut.osm.entity.ItemCategory;
+import com.xmut.osm.entity.Seller;
 import com.xmut.osm.exception.TargetEntityNotFound;
 import com.xmut.osm.goods.service.GoodsService;
 import com.xmut.osm.repository.BrandRepository;
 import com.xmut.osm.repository.GoodsRepository;
 import com.xmut.osm.repository.ItemCategoryRepository;
+import com.xmut.osm.repository.SellerRepository;
 import com.xmut.osm.service.base.BaseServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -24,9 +26,11 @@ import org.springframework.util.StringUtils;
 public class GoodsServiceImpl extends BaseServiceImpl<Goods, String, GoodsRepository> implements GoodsService {
     private final BrandRepository brandRepository;
     private final ItemCategoryRepository itemCategoryRepository;
-    public GoodsServiceImpl(BrandRepository brandRepository, ItemCategoryRepository itemCategoryRepository) {
+    private final SellerRepository sellerRepository;
+    public GoodsServiceImpl(BrandRepository brandRepository, ItemCategoryRepository itemCategoryRepository, SellerRepository sellerRepository) {
         this.brandRepository = brandRepository;
         this.itemCategoryRepository = itemCategoryRepository;
+        this.sellerRepository = sellerRepository;
     }
 
     @Override
@@ -41,9 +45,10 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods, String, GoodsReposi
         BeanUtils.copyProperties(goodsDTO,goods);
         Brand brand = brandRepository.findById(goodsDTO.getBrandId()).orElseThrow(TargetEntityNotFound::new);
         ItemCategory itemCategory = itemCategoryRepository.findById(goodsDTO.getItemCategoryId()).orElseThrow(TargetEntityNotFound::new);
+        Seller seller = sellerRepository.findByAccount(goodsDTO.getSellerAccount()).orElseThrow(TargetEntityNotFound::new);
         goods.setBrand(brand);
         goods.setItemCategory(itemCategory);
-
+        goods.setSeller(seller);
         return repository.save(goods);
     }
 }
