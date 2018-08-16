@@ -1,5 +1,6 @@
 package com.xmut.osm.security.filter;
 
+import com.xmut.osm.common.util.CookieUtil;
 import com.xmut.osm.security.property.JwtAuthenticationProperties;
 import com.xmut.osm.security.util.JwtTokenUtil;
 import io.jsonwebtoken.Claims;
@@ -13,7 +14,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -42,7 +42,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        String token = fetchCookie(request.getCookies());
+        String token = CookieUtil.fetchCookie(request.getCookies(), jwtAuthenticationProperties.getHeader());
         if (StringUtils.isEmpty(token)) {
             token = request.getHeader(jwtAuthenticationProperties.getHeader());
         }
@@ -67,16 +67,5 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
             }
         }
         filterChain.doFilter(request, response);
-    }
-
-    private String fetchCookie(Cookie[] cookies) {
-        if (cookies != null && cookies.length > 0) {
-            for (Cookie cookie : cookies) {
-                if (jwtAuthenticationProperties.getHeader().equals(cookie.getName())) {
-                    return cookie.getValue();
-                }
-            }
-        }
-        return null;
     }
 }

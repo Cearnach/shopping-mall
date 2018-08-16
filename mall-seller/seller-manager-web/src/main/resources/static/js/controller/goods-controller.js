@@ -26,6 +26,8 @@ app.controller("goodsController", function ($scope, $http, $controller, $locatio
             alert("数据不完整");
             return;
         }
+        $scope.entity.brandId = $("#brand-id").val();
+        $scope.entity.itemCategoryId = $("#item-category-id").val();
         $scope.entity.descriptino=editor.html();
         goodsService.save($scope.entity).then(function (resp) {
             if (resp.data.success) {
@@ -100,10 +102,5 @@ app.controller("goodsController", function ($scope, $http, $controller, $locatio
                 console.log(reason);
             });
     };
-    $scope.s = function () {
-        $scope.entity.descriptino=editor.html();
-
-        console.log($scope.entity);
-    }
 });
 

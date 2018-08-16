@@ -6,6 +6,8 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -25,6 +27,7 @@ public class Goods implements Serializable {
     @Column(name = "goods_id")
     private String id;
 
+    @NotBlank
     private String name;
 
     /**
@@ -39,15 +42,15 @@ public class Goods implements Serializable {
     @ManyToOne
     private Seller seller;
 
+    @Min(0)
     private Double price;
-
-    @ManyToOne
-    private GoodsType goodsType;
 
     private Boolean deleted;
 
     @ManyToOne
     private ItemCategory itemCategory;
+
+    private String description;
 
     /**
      * 商品状态

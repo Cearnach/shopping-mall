@@ -13,4 +13,13 @@ public class ResultVO<T> {
     private String message;
     private Boolean success;
     private T data;
+
+    public ResultVO() {
+    }
+
+    public ResultVO(String message, Boolean success, T data) {
+        this.message = message;
+        this.success = success;
+        this.data = data;
+    }
 }

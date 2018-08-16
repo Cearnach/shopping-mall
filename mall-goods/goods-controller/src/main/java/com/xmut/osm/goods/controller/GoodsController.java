@@ -1,48 +1,53 @@
 package com.xmut.osm.goods.controller;
 
+import com.xmut.osm.common.bean.PageBean;
+import com.xmut.osm.common.bean.PageInfo;
+import com.xmut.osm.dto.GoodsDTO;
 import com.xmut.osm.entity.Goods;
+import com.xmut.osm.exception.TargetEntityNotFound;
 import com.xmut.osm.goods.service.GoodsService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * 商品控制层
+ *
  * @author 阮胜
  * @date 2018/7/21 15:55
  */
 @RestController
 @RequestMapping("/goods")
+@Slf4j
 public class GoodsController {
     private final GoodsService goodsService;
-
     public GoodsController(GoodsService goodsService) {
         this.goodsService = goodsService;
     }
 
     @GetMapping("/all")
-    public List<Goods> all() {
-        ArrayList<Goods> goodsList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Goods goods = new Goods();
-            goods.setId(UUID.randomUUID().toString());
-            goods.setName(String.valueOf(i));
-            goodsList.add(goods);
-        }
-        return goodsList;
+    public PageInfo<Goods> fetchGoodsAll(PageBean pageBean) {
+        Page<Goods> goodsPage = goodsService.findAll(pageBean);
+        return new PageInfo<>(pageBean.getPage(), goodsPage.getTotalElements(), goodsPage.getContent());
     }
 
-    @GetMapping("/{id}")
-    public Goods fetchGoods(@PathVariable("id") String id) {
-        Goods goods = new Goods();
-        goods.setId(id);
-        goods.setName("test goods");
-        throw new RuntimeException("test");
+    @PostMapping("/save")
+    public boolean save(@RequestBody Goods goods) {
+        goodsService.save(goods);
+        return true;
+    }
+    @PostMapping("/saveDTO")
+    public boolean save(@RequestBody GoodsDTO goodsDTO, HttpServletRequest request) throws TargetEntityNotFound {
+        goodsService.save(goodsDTO);
+        return true;
+    }
+
+    @DeleteMapping("/deleteAll")
+    public List<String> deleteAll(String[] ids) {
+        return goodsService.deleteIn(ids);
     }
 
 }
