@@ -1,6 +1,7 @@
 package com.xmut.osm.goods.feign;
 
 import com.xmut.osm.common.bean.PageInfo;
+import com.xmut.osm.common.bean.ResultVO;
 import com.xmut.osm.common.constraint.FeignClientConstraints;
 import com.xmut.osm.common.util.BaseServiceClient;
 import com.xmut.osm.dto.GoodsDTO;
@@ -28,7 +29,7 @@ public interface GoodsServiceClient extends BaseServiceClient<Goods> {
     boolean save(@RequestBody Goods goods);
 
     @PostMapping("/goods/saveDTO")
-    boolean save(@RequestBody GoodsDTO goodsDTO);
+    ResultVO save(@RequestBody GoodsDTO goodsDTO);
 
     @DeleteMapping("/goods/deleteAll")
     @Override

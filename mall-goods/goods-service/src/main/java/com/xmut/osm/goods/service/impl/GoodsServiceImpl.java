@@ -1,5 +1,6 @@
 package com.xmut.osm.goods.service.impl;
 
+import com.xmut.osm.common.enumeration.GoodsStatusEnum;
 import com.xmut.osm.dto.GoodsDTO;
 import com.xmut.osm.entity.Brand;
 import com.xmut.osm.entity.Goods;
@@ -16,6 +17,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+
+import java.util.Date;
 
 /**
  * @author 阮胜
@@ -49,6 +52,8 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods, String, GoodsReposi
         goods.setBrand(brand);
         goods.setItemCategory(itemCategory);
         goods.setSeller(seller);
+        goods.setStatus(GoodsStatusEnum.SOLD_ON.getCode());
+        goods.setUpdateDate(new Date());
         return repository.save(goods);
     }
 }

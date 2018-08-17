@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -60,14 +59,7 @@ public class GoodsController {
             return new ResultVO(INVALID_TOKEN, false, null);
         }
         goodsDTO.setSellerAccount(account);
-        ResultVO<String> resultVO = new ResultVO<>();
-        try {
-            resultVO.setSuccess(goodsServiceClient.save(goodsDTO));
-        } catch (Exception e) {
-            resultVO.setSuccess(false);
-            resultVO.setMessage(e.getMessage());
-        }
-        return resultVO;
+        return goodsServiceClient.save(goodsDTO);
     }
 
     private String fetUserAccount(HttpServletRequest request) {

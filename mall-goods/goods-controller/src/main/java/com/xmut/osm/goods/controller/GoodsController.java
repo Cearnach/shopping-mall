@@ -44,12 +44,19 @@ public class GoodsController {
     }
 
     @PostMapping("/saveDTO")
-    public boolean save(@RequestBody GoodsDTO goodsDTO, BindingResult bindingResult) throws TargetEntityNotFound {
+    public ResultVO save(@RequestBody GoodsDTO goodsDTO, BindingResult bindingResult) throws TargetEntityNotFound {
         if (bindingResult.hasErrors()) {
-            return false;
+            return ResultVOUtil.generateResultVO(bindingResult);
         }
-        goodsService.save(goodsDTO);
-        return true;
+        ResultVO<String> resultVO = new ResultVO<>();
+        try {
+            goodsService.save(goodsDTO);
+            resultVO.setSuccess(true);
+        } catch (Exception e) {
+            resultVO.setSuccess(false);
+            resultVO.setMessage(e.getMessage());
+        }
+        return resultVO;
     }
 
     @DeleteMapping("/deleteAll")

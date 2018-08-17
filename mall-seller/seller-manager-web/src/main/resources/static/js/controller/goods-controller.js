@@ -29,7 +29,7 @@ app.controller("goodsController", function ($scope, $http, $controller, $locatio
         }
         $scope.entity.brandId = $("#brand-id").val();
         $scope.entity.itemCategoryId = $("#item-category-id").val();
-        $scope.entity.descriptino = editor.html();
+        $scope.entity.description = editor.html();
         goodsService.save($scope.entity).then(function (resp) {
             if (resp.data.success) {
                 // alert("保存成功");
