@@ -1,4 +1,5 @@
-app.controller("goodsController", function ($scope, $http, $controller, $location, goodsService, itemCatService, brandService) {
+app.controller("goodsController", function ($scope, $http, $controller, $location, goodsService, itemCatService,
+                                            brandService, uploadService) {
     $controller('baseController', {$scope: $scope});
     $scope.findAll = function (page, size) {
         if (page === undefined || page < 1) {
@@ -28,7 +29,7 @@ app.controller("goodsController", function ($scope, $http, $controller, $locatio
         }
         $scope.entity.brandId = $("#brand-id").val();
         $scope.entity.itemCategoryId = $("#item-category-id").val();
-        $scope.entity.descriptino=editor.html();
+        $scope.entity.descriptino = editor.html();
         goodsService.save($scope.entity).then(function (resp) {
             if (resp.data.success) {
                 // alert("保存成功");
@@ -101,6 +102,29 @@ app.controller("goodsController", function ($scope, $http, $controller, $locatio
             .catch(function (reason) {
                 console.log(reason);
             });
+    };
+    /**
+     * 上传图片
+     */
+    $scope.uploadFile = function () {
+        uploadService.uploadFile().success(function (response) {
+            if (response.success) {//如果上传成功，取出url
+                $scope.iamge = response.data;//设置文件地址
+                console.log($scope.iamge);
+            } else {
+                alert(response.message);
+            }
+        }).error(function () {
+            alert("上传发生错误");
+        });
+    };
+    $scope.entity = {images: []};
+    $scope.addImageEntity = function () {
+        $scope.entity.images.push($scope.iamge);
+    };
+
+    $scope.removeImageEntity = function (index) {
+        $scope.entity.images.splice(index, 1);
     };
 });
 

@@ -9,3 +9,4 @@ GOODS-SERVICE           :9501  ----商品服务
 ORDER-SERVICE           :9601  ----订单服务  
 MANAGER-SERVICE         :9701  ----后台管理服务  
 SELLER-SERVICE          :9801  ----商家后台管理服务  
+STORAGE-SERVICE         :22000 ----分布式文件存储中心  

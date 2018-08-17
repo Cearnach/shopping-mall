@@ -7,6 +7,7 @@ import lombok.Data;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 阮胜
@@ -39,7 +40,7 @@ public class GoodsDTO {
 
     private Integer status;
 
-    private String image;
+    private List<String> images;
 
     private Date updateDate;
 

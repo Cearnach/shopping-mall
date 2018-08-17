@@ -32,8 +32,8 @@
     <script src="../js/service/item-cat-service.js"></script>
     <script src="../js/service/goods-service.js"></script>
     <script src="../js/service/brand-service.js"></script>
+    <script src="../js/service/upload-service.js"></script>
     <script src="../js/controller/goods-controller.js"></script>
-
 
 </head>
 
@@ -126,7 +126,8 @@
                     <div class="row data-type">
                         <!-- 颜色图片 -->
                         <div class="btn-group">
-                            <button type="button" class="btn btn-default" title="新建" data-target="#uploadModal"
+                            <button type="button" ng-click="iamge={}" class="btn btn-default" title="新建"
+                                    data-target="#uploadModal"
                                     data-toggle="modal"><i class="fa fa-file-o"></i> 新建
                             </button>
 
@@ -135,20 +136,21 @@
                         <table class="table table-bordered table-striped table-hover dataTable">
                             <thead>
                             <tr>
+                                <th class="sorting">序号</th>
                                 <th class="sorting">图片</th>
                                 <th class="sorting">操作</th>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr ng-repeat="image in entity.images">
                                 <td>
-
+                                    {{$index+1}}
                                 </td>
                                 <td>
-                                    <img alt="" src="" width="100px" height="100px">
+                                    <img alt="" src="{{image}}" width="100px" height="100px">
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-default" title="删除"><i
-                                            class="fa fa-trash-o"></i> 删除
+                                            class="fa fa-trash-o" ng-click="removeImageEntity($index+1)"></i> 删除
                                     </button>
                                 </td>
                             </tr>
@@ -363,12 +365,12 @@
                                 <tr>
                                     <td>
                                         <input type="file" id="file"/>
-                                        <button class="btn btn-primary" type="button">
+                                        <button class="btn btn-primary" type="button" ng-click="uploadFile()">
                                             上传
                                         </button>
                                     </td>
                                     <td>
-                                        <img src="" width="200px" height="200px">
+                                        <img src="{{iamge}}" width="200px" height="200px">
                                     </td>
                                 </tr>
                             </table>
@@ -378,7 +380,8 @@
 
             </div>
             <div class="modal-footer">
-                <button class="btn btn-success" data-dismiss="modal" aria-hidden="true">保存</button>
+                <button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="addImageEntity()">保存
+                </button>
                 <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
             </div>
         </div>

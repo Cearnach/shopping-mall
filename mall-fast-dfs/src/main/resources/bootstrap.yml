@@ -10,6 +10,25 @@ fdfs:
     max-total: 150         #从池中借出的对象的最大数目
     max-wait-millis: 100   #获取连接时的最大等待毫秒数100
   server:
-    host: 192.168.186.128 #服务器的url
+    host: 192.168.186.128 #文件服务器的url
     port: 8080 #文件下载时的服务器端口号
     url: ${fdfs.server.host}:${fdfs.server.port}/
+
+spring:
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-center
+      label: master
+  application:
+    name: storage-service
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:9010/eureka/
+  instance:
+    hostname: localhost
+
+server:
+  port: 22000

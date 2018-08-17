@@ -10,5 +10,6 @@ app.service("goodsService", function ($http) {
     };
     this.findById = function (id) {
         return $http.get("/seller/goods/" + id);
-    }
+    };
+
 });
