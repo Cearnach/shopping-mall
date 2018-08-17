@@ -1,7 +1,5 @@
 package com.xmut.osm.dto;
 
-import com.xmut.osm.entity.ItemCategory;
-import com.xmut.osm.entity.Seller;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
@@ -30,9 +28,6 @@ public class GoodsDTO {
 
     @Min(0)
     private Double price;
-
-
-    private Boolean deleted;
 
     private Integer itemCategoryId;
 

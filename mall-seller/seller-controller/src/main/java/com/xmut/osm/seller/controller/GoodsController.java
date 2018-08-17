@@ -33,10 +33,11 @@ public class GoodsController {
     public static final String INVALID_TOKEN = "无效的Token";
     private final ControllerTemplate<Goods> controllerTemplate;
     private final JwtAuthenticationProperties jwtAuthenticationProperties;
-
+    private final GoodsServiceClient goodsServiceClient;
     public GoodsController(GoodsServiceClient goodsServiceClient, JwtAuthenticationProperties jwtAuthenticationProperties) {
         this.controllerTemplate = ControllerTemplate.getInstance(goodsServiceClient);
         this.jwtAuthenticationProperties = jwtAuthenticationProperties;
+        this.goodsServiceClient = goodsServiceClient;
     }
 
     @GetMapping("/all")
@@ -59,8 +60,14 @@ public class GoodsController {
             return new ResultVO(INVALID_TOKEN, false, null);
         }
         goodsDTO.setSellerAccount(account);
-        System.out.println(goodsDTO);
-        return null;
+        ResultVO<String> resultVO = new ResultVO<>();
+        try {
+            resultVO.setSuccess(goodsServiceClient.save(goodsDTO));
+        } catch (Exception e) {
+            resultVO.setSuccess(false);
+            resultVO.setMessage(e.getMessage());
+        }
+        return resultVO;
     }
 
     private String fetUserAccount(HttpServletRequest request) {
