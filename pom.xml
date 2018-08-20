@@ -21,6 +21,7 @@
         <module>mall-user</module>
         <module>mall-seller</module>
         <module>mall-fast-dfs</module>
+        <module>mall-solr</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -46,9 +46,12 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods, String, GoodsReposi
             goods = repository.findById(goodsId).orElseThrow(TargetEntityNotFound::new);
         }
         BeanUtils.copyProperties(goodsDTO,goods);
-        Brand brand = brandRepository.findById(goodsDTO.getBrandId()).orElseThrow(TargetEntityNotFound::new);
-        ItemCategory itemCategory = itemCategoryRepository.findById(goodsDTO.getItemCategoryId()).orElseThrow(TargetEntityNotFound::new);
-        Seller seller = sellerRepository.findByAccount(goodsDTO.getSellerAccount()).orElseThrow(TargetEntityNotFound::new);
+        Brand brand = brandRepository.findById(goodsDTO.getBrandId())
+                .orElseThrow(TargetEntityNotFound::new);
+        ItemCategory itemCategory = itemCategoryRepository.findById(goodsDTO.getItemCategoryId())
+                .orElseThrow(TargetEntityNotFound::new);
+        Seller seller = sellerRepository.findByAccount(goodsDTO.getSellerAccount())
+                .orElseThrow(TargetEntityNotFound::new);
         goods.setBrand(brand);
         goods.setItemCategory(itemCategory);
         goods.setSeller(seller);

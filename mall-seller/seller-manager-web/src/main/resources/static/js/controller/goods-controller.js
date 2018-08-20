@@ -126,5 +126,6 @@ app.controller("goodsController", function ($scope, $http, $controller, $locatio
     $scope.removeImageEntity = function (index) {
         $scope.entity.images.splice(index, 1);
     };
+    $scope.statusList = {10:"已上架", 11: "已下架"};
 });
 
