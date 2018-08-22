@@ -8,8 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
-
 /**
  * @author 阮胜
  * @date 2018/8/22 14:04
@@ -23,17 +21,23 @@ public class GoodsSolrServiceImpl implements GoodsSolrService {
     }
 
     @Override
-    public Page<SolrGoods> search(Map<String, String> keyMap, PageBean pageBean) {
-        String name = keyMap.get("name");
-        String brand = keyMap.get("brand");
-        String cat = keyMap.get("cat");
-        return goodsSolrRepository.findByNameLikeOrBrandNameLikeOrItemCategoryLike(name == null ? "0" : name,
-                brand == null ? "0" : brand, cat == null ? "0" : cat, PageRequest.of(pageBean.getPage(), pageBean.getSize()));
+    public Page<SolrGoods> search(SolrGoods solrGoods, PageBean pageBean) {
+        if (solrGoods.getName() == null) {
+            solrGoods.setName("");
+        }
+        if (solrGoods.getBrandName() == null) {
+            solrGoods.setBrandName("");
+        }
+        if (solrGoods.getItemCategory() == null) {
+            solrGoods.setItemCategory("");
+        }
+        return goodsSolrRepository.findByNameLikeOrBrandNameLikeOrItemCategoryLike(solrGoods.getName(), solrGoods.getBrandName(),
+                solrGoods.getItemCategory(), PageRequest.of(pageBean.getPage(), pageBean.getSize()));
     }
 
     @Override
     public Page<SolrGoods> findByGoodsNameLike(String goodsName, PageBean pageBean) {
-        return goodsSolrRepository.findByNameLike(goodsName,PageRequest.of(pageBean.getPage(),pageBean.getSize()));
+        return goodsSolrRepository.findByNameLike(goodsName, PageRequest.of(pageBean.getPage(), pageBean.getSize()));
     }
 
     @Override

@@ -8,11 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author 阮胜
@@ -28,10 +26,8 @@ public class GoodsSolrController {
     }
 
     @GetMapping("/search")
-    public ResultVO<List<SolrGoods>> search(@RequestParam Map<String, String> keyMap, PageBean pageBean) {
-        System.out.println(keyMap);
-        System.out.println(pageBean);
-        Page<SolrGoods> goodsPage = goodsSolrService.search(keyMap, pageBean);
+    public ResultVO<List<SolrGoods>> search(SolrGoods solrGoods, PageBean pageBean) {
+        Page<SolrGoods> goodsPage = goodsSolrService.search(solrGoods, pageBean);
         return new ResultVO<>(null, true, goodsPage.getContent());
     }
 
