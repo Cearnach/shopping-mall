@@ -21,7 +21,7 @@ public class SolrGoods {
     @Indexed(name = "item_goods_name", type = "text_ik")
     private String name;
 
-    @Indexed(name = "item_goods_brand", type = "text_ik")
+    @Indexed(name = "item_goods_brand_name", type = "text_ik")
     private String brandName;
 
     @Indexed(name = "item_seller_name", type = "text_ik")
@@ -30,7 +30,7 @@ public class SolrGoods {
     @Indexed(name = "item_goods_price")
     private Double price;
 
-    @Indexed(name = "item_goods_category")
+    @Indexed(name = "item_goods_category_name")
     private String itemCategory;
 
     private List<String> images;

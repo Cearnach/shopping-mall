@@ -9,7 +9,9 @@ import org.springframework.data.solr.repository.SolrCrudRepository;
  * @author 阮胜
  * @date 2018/8/22 13:59
  */
-public interface GoodsSolrRepository extends SolrCrudRepository<SolrGoods,String> {
-    Page<SolrGoods> findAllByNameOrBrandNameOrItemCategory(String goodsName, String brandName, String itemCategoryName
-    , Pageable pageable);
+public interface GoodsSolrRepository extends SolrCrudRepository<SolrGoods, String> {
+    Page<SolrGoods> findByNameLikeOrBrandNameLikeOrItemCategoryLike(String goodsName, String brandName,
+                                                                    String itemCategoryName, Pageable pageable);
+
+    Page<SolrGoods> findByNameLike(String goodsName, Pageable pageable);
 }

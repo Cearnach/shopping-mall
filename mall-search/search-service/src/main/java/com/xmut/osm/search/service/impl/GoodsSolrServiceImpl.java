@@ -24,7 +24,21 @@ public class GoodsSolrServiceImpl implements GoodsSolrService {
 
     @Override
     public Page<SolrGoods> search(Map<String, String> keyMap, PageBean pageBean) {
-        return goodsSolrRepository.findAllByNameOrBrandNameOrItemCategory(keyMap.get("name"),
-                keyMap.get("brand"), keyMap.get("cat"), PageRequest.of(pageBean.getPage(), pageBean.getSize()));
+        String name = keyMap.get("name");
+        String brand = keyMap.get("brand");
+        String cat = keyMap.get("cat");
+        return goodsSolrRepository.findByNameLikeOrBrandNameLikeOrItemCategoryLike(name == null ? "0" : name,
+                brand == null ? "0" : brand, cat == null ? "0" : cat, PageRequest.of(pageBean.getPage(), pageBean.getSize()));
     }
+
+    @Override
+    public Page<SolrGoods> findByGoodsNameLike(String goodsName, PageBean pageBean) {
+        return goodsSolrRepository.findByNameLike(goodsName,PageRequest.of(pageBean.getPage(),pageBean.getSize()));
+    }
+
+    @Override
+    public SolrGoods save(SolrGoods solrGoods) {
+        return goodsSolrRepository.save(goodsSolrRepository.save(solrGoods));
+    }
+
 }

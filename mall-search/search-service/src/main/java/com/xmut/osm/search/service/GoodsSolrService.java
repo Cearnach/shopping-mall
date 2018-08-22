@@ -12,4 +12,8 @@ import java.util.Map;
  */
 public interface GoodsSolrService {
     Page<SolrGoods> search(Map<String, String> keyMap, PageBean pageBean);
+
+    Page<SolrGoods> findByGoodsNameLike(String goodsName, PageBean pageBean);
+
+    SolrGoods save(SolrGoods solrGoods);
 }

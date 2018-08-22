@@ -55,4 +55,4 @@ hystrix:
           thread:
             timeoutInMilliseconds: 10000
 server:
-  port:
+  port: 9901
