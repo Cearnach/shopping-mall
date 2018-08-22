@@ -2,7 +2,6 @@ package com.xmut.osm.search.controller;
 
 import com.xmut.osm.common.bean.PageBean;
 import com.xmut.osm.common.bean.PageInfo;
-import com.xmut.osm.common.bean.ResultVO;
 import com.xmut.osm.common.util.PageInfoUtil;
 import com.xmut.osm.search.service.GoodsSolrService;
 import com.xmut.osm.solr.entity.SolrGoods;
@@ -27,10 +26,16 @@ public class GoodsSolrController {
         this.goodsSolrService = goodsSolrService;
     }
 
-    @GetMapping("/searchBySolrGoods")
-    public ResultVO<List<SolrGoods>> search(SolrGoods solrGoods, PageBean pageBean) {
-        Page<SolrGoods> goodsPage = goodsSolrService.search(solrGoods, pageBean);
-        return new ResultVO<>(null, true, goodsPage.getContent());
+    @GetMapping("/search")
+    public PageInfo search(String key, PageBean pageBean) {
+        Page<SolrGoods> goodsPage = goodsSolrService.findByKeyWords(key, pageBean);
+        return PageInfoUtil.generate(pageBean, goodsPage);
+    }
+
+    @GetMapping("/search/all")
+    public PageInfo search(PageBean pageBean) {
+        Page<SolrGoods> solrGoodsPage = goodsSolrService.findAll(pageBean);
+        return PageInfoUtil.generate(pageBean, solrGoodsPage);
     }
 
     @GetMapping("/find")
@@ -42,11 +47,5 @@ public class GoodsSolrController {
     public boolean save(SolrGoods solrGoods) {
         goodsSolrService.save(solrGoods);
         return true;
-    }
-
-    @GetMapping("/search")
-    public PageInfo<List<SolrGoods>> search(String keywords, PageBean pageBean) {
-        Page<SolrGoods> goodsPage = goodsSolrService.findByKeyWords(keywords, pageBean);
-        return PageInfoUtil.generate(pageBean, goodsPage);
     }
 }

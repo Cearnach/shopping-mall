@@ -15,5 +15,6 @@ public interface GoodsSolrService {
 
     Page<SolrGoods> findByKeyWords(String keywords, PageBean pageBean);
 
+    Page<SolrGoods> findAll(PageBean pageBean);
     SolrGoods save(SolrGoods solrGoods);
 }

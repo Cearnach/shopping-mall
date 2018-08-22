@@ -1,4 +1,4 @@
-app.controller("brandController", function ($scope, $http, $controller, brandService) {
+app.controller("searchController", function ($scope, $http, $controller, searchService) {
     $controller('baseController', {$scope: $scope});
     $scope.findAll = function (page, size) {
         if (page === undefined || page < 1) {
@@ -7,15 +7,26 @@ app.controller("brandController", function ($scope, $http, $controller, brandSer
         if (size === undefined || size < 0) {
             size = 10;
         }
-        brandService.findAll(page, size)
+        searchService.findAll(page, size)
             .then(function (resp) {
                 $scope.pageInfo = resp.data;
-                $scope.paginationConf.totalItems = $scope.pageInfo.totalElements;
             }).catch(function () {
             alert("获取列表失败");
         });
     };
-
+    $scope.findGoods = function (key, page, size) {
+        if (page === undefined || page < 1) {
+            page = 1;
+        }
+        if (size === undefined || size < 0) {
+            size = 10;
+        }
+        searchService.findGoods(key, page, size)
+            .then(function (resp) {
+                $scope.pageInfo = resp.data;
+            }).catch(function (reason) {
+        });
+    };
 
     $scope.bindSaveData = function (entity) {
         $scope.entity = entity;
@@ -25,7 +36,7 @@ app.controller("brandController", function ($scope, $http, $controller, brandSer
             alert("数据不完整");
             return;
         }
-        brandService.save($scope.entity).then(function (resp) {
+        searchService.save($scope.entity).then(function (resp) {
             if (resp.data.success) {
                 // alert("保存成功");
                 $scope.refreshList();
@@ -56,7 +67,7 @@ app.controller("brandController", function ($scope, $http, $controller, brandSer
             }
         });
         if (confirm("确定删除?") && $scope.selectedIds.length > 0) {
-            brandService.delete($scope.selectedIds)
+            searchService.delete($scope.selectedIds)
                 .then(function (resp) {
                     if (resp.data.success) {
                         // alert("删除成功");

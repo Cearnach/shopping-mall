@@ -46,6 +46,11 @@ public class GoodsSolrServiceImpl implements GoodsSolrService {
     }
 
     @Override
+    public Page<SolrGoods> findAll(PageBean pageBean) {
+        return goodsSolrRepository.findAll(PageRequest.of(pageBean.getPage(), pageBean.getSize()));
+    }
+
+    @Override
     public SolrGoods save(SolrGoods solrGoods) {
         return goodsSolrRepository.save(goodsSolrRepository.save(solrGoods));
     }

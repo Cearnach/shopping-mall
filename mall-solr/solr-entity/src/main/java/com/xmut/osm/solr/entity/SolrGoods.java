@@ -10,7 +10,7 @@ import org.springframework.data.solr.core.mapping.SolrDocument;
  * @date 2018/8/20 20:35
  */
 @Data
-@SolrDocument(collection = "new_core")
+@SolrDocument(collection = "shopping_mall")
 public class SolrGoods {
     @Id
     @Indexed(name = "item_goods_id")
@@ -34,7 +34,7 @@ public class SolrGoods {
     @Indexed(name = "item_goods_category_name")
     private String categoryName;
 
-    @Indexed(name = "item_goods_image")
+    @Indexed(name = "item_goods_image", type = "text")
     private String image;
 
 
