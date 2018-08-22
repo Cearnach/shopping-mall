@@ -1,5 +1,6 @@
 
 电商系统
+项目整体架构基本完成.商品模块和支付等模块未完成,马上就开学了,如果有时间的话我会继续完善各个模块.
 注:该项目的前端静态页面使用的是黑马的品优购商城静态页面.(前端写的比较随意,主要注重后端)    
 ### 简介:
 * 整个项目基于 Spring Boot 和 Spring Cloud .  
@@ -54,3 +55,6 @@
 * SELLER-SERVICE          :9801  ----商家后台管理服务  
 * SEARCH-SERVICE          :9901  ----搜索服务,采用Solr搜索解决方案
 * STORAGE-SERVICE         :22000 ----分布式文件存储中心(使用的是FastDFS)  
+
+![image](screenshot/web/web-1.jpg)
+![image](screenshot/web/web-2.jpg)
