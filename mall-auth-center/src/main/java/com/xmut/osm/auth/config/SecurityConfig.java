@@ -1,8 +1,6 @@
 package com.xmut.osm.auth.config;
 
 import com.xmut.osm.auth.filter.JwtUserUsernameAndPasswordAuthenticationFilter;
-import com.xmut.osm.auth.handler.JwtAuthenticationFailureHandler;
-import com.xmut.osm.auth.handler.JwtAuthenticationSuccessHandler;
 import com.xmut.osm.auth.provider.SellerDetailsAuthenticationProvider;
 import com.xmut.osm.auth.provider.UserDetailsAuthenticationProvider;
 import com.xmut.osm.security.property.JwtAuthenticationProperties;
@@ -81,7 +79,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(jwtAuthenticationProperties.getUserLoginUrl(), jwtAuthenticationProperties.getSellerLoginUrl()).permitAll()
-                .antMatchers(jwtAuthenticationProperties.getUserLoginUrl()).permitAll()
                 .anyRequest().authenticated();
     }
 

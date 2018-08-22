@@ -1,5 +1,7 @@
 package com.xmut.osm.auth.provider;
 
+import com.xmut.osm.auth.token.SellerUsernamePasswordAuthenticationToken;
+
 /**
  * 商家登录token
  *
@@ -8,7 +10,7 @@ package com.xmut.osm.auth.provider;
  */
 public class SellerDetailsAuthenticationProvider extends UserDetailsAuthenticationProvider {
 
-    private static final String AUTH_SELLER_USERNAME_PASSWORD_TOKEN_CLASS_NAME = SellerDetailsAuthenticationProvider.class.getSimpleName();
+    private static final String AUTH_SELLER_USERNAME_PASSWORD_TOKEN_CLASS_NAME = SellerUsernamePasswordAuthenticationToken.class.getSimpleName();
 
     /**
      * 通过该方法来决定是否使用该provider
