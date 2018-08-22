@@ -2,6 +2,7 @@
 电商系统
 项目整体架构基本完成.商品模块和支付等模块未完成,马上就开学了,如果有时间的话我会继续完善各个模块.
 注:该项目的前端静态页面使用的是黑马的品优购商城静态页面.(前端写的比较随意,主要注重后端)    
+#
 ### 简介:
 * 整个项目基于 Spring Boot 和 Spring Cloud .  
 * 使用 Eureka做服务的注册与发现.  
@@ -18,7 +19,7 @@
 * 使用 AngularJS 做前端.Angular2其实是个更好的选择,只不过不想在前端浪费太多时间  
 * 使用 Swagger2 生成文档API
 未完待续...  
-
+#
 ### 使用到的框架和技术一览
 * Spring Boot
 * Spring Cloud Eureka
@@ -41,9 +42,9 @@
 * FastDFS
 * AngularJS
 * Nginx
+#
 
-
-###端口说明:  
+### 端口说明:  
 * GATEWAY-SERVICE         :9000  ----网关,Zuul  
 * CLOUD-CENTER            :9010  ----服务注册中心,Eureka  
 * CONFIG-CENTER           :9050  ----配置中心,Spring Cloud Config  
@@ -57,4 +58,5 @@
 * STORAGE-SERVICE         :22000 ----分布式文件存储中心(使用的是FastDFS)  
 
 ![image](screenshot/web/web-1.jpg)
+#
 ![image](screenshot/web/web-2.jpg)
