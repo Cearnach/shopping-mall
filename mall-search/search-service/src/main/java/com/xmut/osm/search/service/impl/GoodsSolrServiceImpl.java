@@ -28,16 +28,21 @@ public class GoodsSolrServiceImpl implements GoodsSolrService {
         if (solrGoods.getBrandName() == null) {
             solrGoods.setBrandName("");
         }
-        if (solrGoods.getItemCategory() == null) {
-            solrGoods.setItemCategory("");
+        if (solrGoods.getCategoryName() == null) {
+            solrGoods.setCategoryName("");
         }
-        return goodsSolrRepository.findByNameLikeOrBrandNameLikeOrItemCategoryLike(solrGoods.getName(), solrGoods.getBrandName(),
-                solrGoods.getItemCategory(), PageRequest.of(pageBean.getPage(), pageBean.getSize()));
+        return goodsSolrRepository.findByNameLikeOrBrandNameLikeOrCategoryNameLike(solrGoods.getName(), solrGoods.getBrandName(),
+                solrGoods.getCategoryName(), PageRequest.of(pageBean.getPage(), pageBean.getSize()));
     }
 
     @Override
     public Page<SolrGoods> findByGoodsNameLike(String goodsName, PageBean pageBean) {
         return goodsSolrRepository.findByNameLike(goodsName, PageRequest.of(pageBean.getPage(), pageBean.getSize()));
+    }
+
+    @Override
+    public Page<SolrGoods> findByKeyWords(String keywords, PageBean pageBean) {
+        return goodsSolrRepository.findByKeyWords(keywords, PageRequest.of(pageBean.getPage(), pageBean.getSize()));
     }
 
     @Override

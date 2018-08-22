@@ -5,8 +5,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.solr.core.mapping.Indexed;
 import org.springframework.data.solr.core.mapping.SolrDocument;
 
-import java.util.List;
-
 /**
  * @author 阮胜
  * @date 2018/8/20 20:35
@@ -30,9 +28,17 @@ public class SolrGoods {
     @Indexed(name = "item_goods_price")
     private Double price;
 
-    @Indexed(name = "item_goods_category_name")
-    private String itemCategory;
+    @Indexed(name = "item_goods_category_id")
+    private Integer categoryId;
 
-    private List<String> images;
+    @Indexed(name = "item_goods_category_name")
+    private String categoryName;
+
+    @Indexed(name = "item_goods_image")
+    private String image;
+
+
+    @Indexed(name = "item_goods_stock_count")
+    private Integer stockCount;
 
 }

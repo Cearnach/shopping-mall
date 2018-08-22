@@ -13,5 +13,7 @@ public interface GoodsSolrService {
 
     Page<SolrGoods> findByGoodsNameLike(String goodsName, PageBean pageBean);
 
+    Page<SolrGoods> findByKeyWords(String keywords, PageBean pageBean);
+
     SolrGoods save(SolrGoods solrGoods);
 }
