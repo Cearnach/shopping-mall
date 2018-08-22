@@ -3,20 +3,22 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>mall-order</artifactId>
+        <artifactId>shopping-mall</artifactId>
         <groupId>com.xmut</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>order-controller</artifactId>
+    <artifactId>mall-search</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>search-interface</module>
+        <module>search-feign</module>
+        <module>search-service</module>
+        <module>search-controller</module>
+        <module>search-application</module>
+        <module>search-web</module>
+    </modules>
 
-<dependencies>
 
-    <dependency>
-        <groupId>com.xmut</groupId>
-        <artifactId>order-service</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-    </dependency>
-</dependencies>
 </project>
