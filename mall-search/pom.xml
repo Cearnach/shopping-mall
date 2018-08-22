@@ -15,7 +15,6 @@
         <module>search-feign</module>
         <module>search-service</module>
         <module>search-controller</module>
-        <module>search-application</module>
         <module>search-web</module>
     </modules>
 

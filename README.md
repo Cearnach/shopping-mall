@@ -34,4 +34,5 @@
 * ORDER-SERVICE           :9601  ----订单服务  
 * MANAGER-SERVICE         :9701  ----后台管理服务  
 * SELLER-SERVICE          :9801  ----商家后台管理服务  
+* SEARCH-SERVICE          :9901  ----搜索服务,采用Solr搜索解决方案
 * STORAGE-SERVICE         :22000 ----分布式文件存储中心  
