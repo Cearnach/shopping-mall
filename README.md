@@ -57,6 +57,18 @@
 * SEARCH-SERVICE          :9901  ----搜索服务,采用Solr搜索解决方案
 * STORAGE-SERVICE         :22000 ----分布式文件存储中心(使用的是FastDFS)  
 
-![image](screenshot/web/web-1.jpg)
+![image](screenshot/web/web1.jpg)
 #
-![image](screenshot/web/web-2.jpg)
+![image](screenshot/web/web2.jpg)
+#
+![image](screenshot/backend/b1.jpg)
+#
+![image](screenshot/backend/b2.jpg)
+#
+![image](screenshot/backend/b3.jpg)
+#
+![image](screenshot/backend/b4.jpg)
+
+![image](screenshot/backend/b5.jpg)
+#
+
