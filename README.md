@@ -11,7 +11,7 @@
 * 使用 Spring Cloud Feign 做服务调用,Ribbon做负载均衡.(Feign 对 Ribbon 进行了封装)  
 * 使用 Spring Cloud Hystrix 做熔断器,防止级联故障而引起雪崩,且可以做回滚操作,提高系统的整体可靠性.    
 * 使用 Apache Solr 做全文搜索,主要用来搜索商品,高亮显示搜索结果.   
-* 使用 Spring Cloud Solr 简化Solr搜索的Api调用,使用方法和Spring Data JPA 差不多.  
+* 使用 Spring Data Solr 简化Solr搜索的Api调用,使用方法和Spring Data JPA 差不多.  
 * 使用 FastDFS 分布式文件系统做文件存储(这玩意儿建议直接装在Docker,因为安装和配置比较麻烦!).    
 * 使用 Spring Security 实现权限控制.  
 * 使用 Hibernate 做持久层(不选Mybatis的原因是因为暑假没多少时间,用Hibernate开发周期比较短,当然,运行效率也会相对比较低一些)  
