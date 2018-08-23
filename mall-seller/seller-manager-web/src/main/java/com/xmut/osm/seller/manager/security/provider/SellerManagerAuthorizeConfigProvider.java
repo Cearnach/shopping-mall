@@ -28,7 +28,7 @@ public class SellerManagerAuthorizeConfigProvider implements AuthorizeConfigProv
     public void configure(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
         config.antMatchers("/register.html", "/register").permitAll();
         config.antMatchers(("/all")).hasAnyRole(RoleEnum.ADMIN.getName(), RoleEnum.SELLER.getName());
-        List<Permission> permissionList = permissionRepository.findAllByProjectCode(PermissionProjectEnum.MANAGER.getProjectCode());
+        List<Permission> permissionList = permissionRepository.findAllByProjectCode(PermissionProjectEnum.SELLER.getProjectCode());
         PermissionUtil.applyPermission(config, permissionList);
     }
 

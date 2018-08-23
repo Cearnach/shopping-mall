@@ -91,7 +91,6 @@ public class JwtUserUsernameAndPasswordAuthenticationFilter extends UsernamePass
         );
         Cookie cookie = new Cookie(jwtAuthenticationProperties.getHeader(), jwtAuthenticationProperties.getPrefix().concat(token));
         cookie.setMaxAge(60 * 60 * 24 * 7);
-        cookie.setPath("/");
         response.addCookie(cookie);
         try {
             log.info(LOGIN_SUCCESS.concat(" 用户名:{},权限:{}"), auth.getName(), auth.getAuthorities());

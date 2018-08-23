@@ -7,6 +7,7 @@ import com.xmut.osm.common.enumeration.SellerStatusEnum;
 import com.xmut.osm.common.util.PageInfoUtil;
 import com.xmut.osm.common.util.ResultVOUtil;
 import com.xmut.osm.entity.Seller;
+import com.xmut.osm.exception.TargetEntityNotFound;
 import com.xmut.osm.manager.service.SellerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -24,7 +25,6 @@ import java.util.List;
 @Slf4j
 public class SellerController {
     private final SellerService sellerService;
-
     public SellerController(SellerService sellerService) {
         this.sellerService = sellerService;
     }
@@ -70,7 +70,7 @@ public class SellerController {
     }
 
     @PutMapping("/update/status")
-    public boolean updateStatus(@Min(0) Integer sellerId, @Min(0) Integer statusCode) {
+    public boolean updateStatus(@Min(0) Integer sellerId, @Min(0) Integer statusCode) throws TargetEntityNotFound {
         sellerService.updateStatusCode(sellerId, statusCode);
         return true;
     }
@@ -79,4 +79,5 @@ public class SellerController {
     public List<Integer> deleteAll(Integer[] ids) {
         return sellerService.deleteIn(ids);
     }
+
 }

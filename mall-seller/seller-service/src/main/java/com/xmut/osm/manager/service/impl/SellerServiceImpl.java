@@ -40,8 +40,8 @@ public class SellerServiceImpl extends BaseServiceImpl<Seller, Integer, SellerRe
     public void updateStatusCode(Integer sellerId, Integer statusCode) throws TargetEntityNotFound {
         Seller seller = repository.findById(sellerId).orElseThrow(EntityNotFoundException::new);
         Role sellerRole = roleRepository.findByCode(RoleEnum.SELLER.getCode()).orElseThrow(TargetEntityNotFound::new);
-//        Role userRole = roleRepository.findByCode(RoleEnum.USER.getCode()).orElseThrow(TargetEntityNotFound::new);
-        seller.setRoles(Arrays.asList(sellerRole));
+        Role userRole = roleRepository.findByCode(RoleEnum.USER.getCode()).orElseThrow(TargetEntityNotFound::new);
+        seller.setRoles(Arrays.asList(sellerRole, userRole));
         seller.setStatus(statusCode);
     }
 
