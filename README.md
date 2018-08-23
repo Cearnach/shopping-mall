@@ -17,7 +17,7 @@
 * 使用 Hibernate 做持久层(不选Mybatis的原因是因为暑假没多少时间,用Hibernate开发周期比较短,当然,运行效率也会相对比较低一些)  
 * 使用 Spring Data JPA 简化持久层开发.  
 * 使用 AngularJS 做前端.Angular2其实是个更好的选择,只不过不想在前端浪费太多时间  
-* 使用 Swagger2 生成文档API
+* 使用 Swagger2 生成文档API  
 未完待续...  
 #
 ### 使用到的框架和技术一览
@@ -68,7 +68,9 @@
 ![image](screenshot/backend/b3.jpg)
 #
 ![image](screenshot/backend/b4.jpg)
-
+#
 ![image](screenshot/backend/b5.jpg)
+#
+![image](screenshot/structure/s1.jpg)
 #
 
